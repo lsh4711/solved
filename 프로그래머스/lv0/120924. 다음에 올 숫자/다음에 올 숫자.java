@@ -1,7 +1,7 @@
 class Solution {
     public int solution(int[] common) {
-        int end = common[common.length-1];
-        if(common[1]*2 == common[0]+common[2]) return end + common[1] - common[0];
-        return end * common[1] / common[0];
+        int subtract = common[1] - common[0];
+        if(subtract == common[2]-common[1]) return common[common.length-1] + subtract;
+        return common[1] / common[0] * common[common.length-1];
     }
 }
