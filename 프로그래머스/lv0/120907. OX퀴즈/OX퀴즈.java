@@ -6,7 +6,7 @@ class Solution {
             if(str[1].equals("-")) op = -1;
             if(Integer.parseInt(str[0])+Integer.parseInt(str[2])*op == Integer.parseInt(str[4])) quiz[i] = "O";
             else quiz[i] = "X";
-        }  
+        }
         
         return quiz;
     }
