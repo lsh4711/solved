@@ -1,12 +1,9 @@
 class Solution {
     public int solution(String my_string) {
-        String[] arr = my_string.split(" ");
-        int answer = Integer.parseInt(arr[0]);
+        int answer = 0;
+        String[] arr = my_string.replaceAll("- ", "-").replaceAll("[+] ", "").trim().split(" ");
         
-        for(int i=2; i<arr.length; i+=2) {
-            if(arr[i-1].equals("+")) answer += Integer.parseInt(arr[i]);
-            else if(arr[i-1].equals("-")) answer -= Integer.parseInt(arr[i]);
-        }
+        for(String s : arr) answer += Integer.parseInt(s);
         
         return answer;
     }
