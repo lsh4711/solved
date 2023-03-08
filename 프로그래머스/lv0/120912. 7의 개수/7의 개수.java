@@ -1,9 +1,14 @@
 class Solution {
     public int solution(int[] array) {
-        String str = "";
+        int answer = 0;
         
-        for(int s : array) str += s;
+        for(int num : array) {
+            String str = Integer.toString(num);
+            for(int i=0; i<str.length(); i++) {
+                if(str.charAt(i) == '7') answer++;
+            }
+        }
         
-        return str.length() - str.replace("7", "").length();
+        return answer;
     }
 }
