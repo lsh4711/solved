@@ -2,10 +2,10 @@ import java.util.Arrays;
 
 class Solution {
     public String solution(String my_string) {
-        String[] strarr = my_string.toLowerCase().split("");
+        char[] arr = my_string.toLowerCase().toCharArray();
         
-        Arrays.sort(strarr);
+        Arrays.sort(arr);
         
-        return String.join("", strarr);
+        return new String(arr);
     }
 }
