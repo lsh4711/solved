@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 
 class Solution {
-    public ArrayList solution(int n) {
-        ArrayList<Integer> list = new ArrayList();
+    public ArrayList<Integer> solution(int n) {
+        ArrayList<Integer> answer = new ArrayList();
         
-        for(int i=1; i<=(n/2); i++) {
-            if(n%i == 0) list.add(i);
+        for(int i=1; i<=n/2; i++) {
+            if(n%i == 0) answer.add(i);
         }
-        list.add(n);
+        answer.add(n);
         
-        return list;
+        return answer;
     }
 }
