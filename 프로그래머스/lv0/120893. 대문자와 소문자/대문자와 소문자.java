@@ -3,8 +3,9 @@ class Solution {
         StringBuilder answer = new StringBuilder();
 
         for(char c : my_string.toCharArray()) {
-            if(c>'Z') answer.append((char)(c-32));
-            else answer.append((char)(c+32));
+            if(c>'Z') c-=32;
+            else c+=32;
+            answer.append(c);
         }
         
         return answer.toString();
