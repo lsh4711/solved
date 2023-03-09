@@ -1,5 +1,5 @@
 class Solution {
-    public String solution(String my_string) {
+    public StringBuilder solution(String my_string) {
         StringBuilder answer = new StringBuilder();
 
         for(char c : my_string.toCharArray()) {
@@ -8,7 +8,6 @@ class Solution {
             answer.append(c);
         }
         
-        return answer.toString();
+        return answer;
     }
 }
- 
