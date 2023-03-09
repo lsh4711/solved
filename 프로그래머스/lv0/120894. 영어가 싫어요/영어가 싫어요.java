@@ -7,3 +7,4 @@ class Solution {
         return Long.parseLong(numbers);
     }
 }
+     
