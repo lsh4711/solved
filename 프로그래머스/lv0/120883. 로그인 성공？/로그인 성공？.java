@@ -1,15 +1,13 @@
-import java.util.Arrays;
-
 class Solution {
     public String solution(String[] id_pw, String[][] db) {
-        boolean check = true;
+        boolean id = false;
         
         for(String[] arr : db) {
-            if(Arrays.equals(arr, id_pw)) return "login";
-            else if(arr[0].equals(id_pw[0])) check = false;
+            if(id_pw[0].equals(arr[0]) && id_pw[1].equals(arr[1])) return "login";
+            if(id_pw[0].equals(arr[0])) id = true;
         }
-    
-        if(check) return "fail";
+        
+        if(!id) return "fail";
         return "wrong pw";
     }
 }
