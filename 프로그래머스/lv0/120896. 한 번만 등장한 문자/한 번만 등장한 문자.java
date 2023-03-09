@@ -2,15 +2,19 @@ import java.util.Arrays;
 
 class Solution {
     public String solution(String s) {
-        String answer = "";
-        String[] arr = s.split("");
+        StringBuilder answer = new StringBuilder();
+        char[] arr = s.toCharArray();
         
         Arrays.sort(arr);
-        
-        for(int i=0; i<arr.length; i++) {
-            if(arr.length-s.replace(arr[i], "").length() == 1) answer += arr[i];
+        label : for(char c : arr) {
+            int cnt = 0;
+            for(char cc : arr) {
+                if(c != cc) continue;
+                if(++cnt == 2) continue label;
+            }
+            answer.append(c);
         }
         
-        return answer;
+        return answer.toString();
     }
 }
