@@ -1,17 +1,17 @@
 class Solution {
     public int solution(int a, int b) {
-        int i = b;
+        int n = b;
         
         while(b != 0) {
-            int r = a%b;
+            int r = a % b;
             a = b;
             b = r;
         }
-        i /= a;
+        n /= a;
+        while(n%5 == 0) n /= 5;
+        while(n%2 == 0) n /= 2;
         
-        while(i%2 == 0) i /= 2;
-        while(i%5 == 0) i /= 5;
-        
-        return (i == 1) ? 1 : 2;
+        if(n == 1) return 1;
+        return 2;
     }
 }
