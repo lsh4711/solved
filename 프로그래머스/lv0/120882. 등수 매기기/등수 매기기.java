@@ -1,13 +1,14 @@
-import java.util.ArrayList;
+import java.util.*;
+
 class Solution {
     public int[] solution(int[][] score) {
-        ArrayList<Integer> scoreList = new ArrayList<>();
-        for(int[] t : score) scoreList.add(t[0] + t[1]);
-        scoreList.sort((a1, a2) -> a2 - a1);
-
         int[] answer = new int[score.length];
-        for(int i=0; i<score.length; i++) answer[i] = scoreList.indexOf(score[i][0] + score[i][1])+1;
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        for(int[] s : score) list.add(s[0] + s[1]);
+        list.sort(Comparator.reverseOrder());
+        for(int i=0; i<score.length; i++) answer[i] = list.indexOf(score[i][0] + score[i][1]) + 1;
         
         return answer;
     }
-}
+} 
