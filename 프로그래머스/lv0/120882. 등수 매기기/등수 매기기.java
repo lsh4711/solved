@@ -5,12 +5,9 @@ class Solution {
         int[] answer = new int[score.length];
         ArrayList<Integer> list = new ArrayList<>();
         
-        for(int i=0; i<score.length; i++) {
-            answer[i] = score[i][0] + score[i][1];
-            list.add(answer[i]);
-        }
+        for(int[] s : score) list.add(s[0] + s[1]);
         list.sort(Comparator.reverseOrder());
-        for(int i=0; i<score.length; i++) answer[i] = list.indexOf(answer[i]) + 1;
+        for(int i=0; i<score.length; i++) answer[i] = list.indexOf(score[i][0] + score[i][1]) + 1;
         
         return answer;
     }
