@@ -1,13 +1,15 @@
-import java.util.Arrays;
-
 class Solution {
     public int solution(String before, String after) {
-        String[] b = before.split("");
-        String[] a = after.split("");
+        int[] visit = new int[123];
         
-        Arrays.sort(b);
-        Arrays.sort(a);
+        for(int i=0; i<before.length(); i++) {
+            visit[before.charAt(i)]++;
+            visit[after.charAt(i)]--;
+        }
+        for(int i=97; i<123; i++) {
+            if(visit[i] != 0) return 0;
+        }
         
-        return Arrays.equals(b, a) ? 1 : 0;
+        return 1;
     }
 }
