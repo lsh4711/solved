@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.ArrayList;
 
 class Solution {
     public ArrayList<Integer> solution(String[] maps) {
@@ -25,4 +25,4 @@ class Solution {
         
         return food;
     }
-}
+}  
