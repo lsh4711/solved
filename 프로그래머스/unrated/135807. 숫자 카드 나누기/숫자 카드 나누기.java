@@ -5,24 +5,28 @@ class Solution {
         
         for(int a : arrayA) gcdA = gcd(gcdA, a);
         for(int b : arrayB) gcdB = gcd(gcdB, b);
-        
-        for(int i = Math.max(gcdA, gcdB); i > 1; i--) {
-            label : if(gcdA % i == 0) {
-                for(int b : arrayB) {
-                    if(b % i == 0) break label;
-                }
-                return i;
+        label : for(int i = Math.max(gcdA, gcdB); i > 1; i--) {
+            boolean boolA = gcdA % i == 0;
+            boolean boolB = gcdB % i == 0;
+            if(boolA == boolB) continue;
+            int gcdN;
+            int[] arrayN;
+            if(boolA) {
+                gcdN = gcdA;
+                arrayN = arrayB;
+            } else  {
+                gcdN = gcdB;
+                arrayN = arrayA;
             }
-            label : if(gcdB % i == 0) {
-                for(int a : arrayA) {
-                    if(a % i == 0) break label;
-                }
-                return i;
+            for(int n : arrayN) {
+                if(n % i == 0) continue label;
             }
+            return i;
         }
         
         return 0;
     }
+    
     static int gcd(int a, int b) {
         while(b != 0) {
             int r = a % b;
@@ -32,4 +36,4 @@ class Solution {
         
         return a;
     }
-}
+} 
