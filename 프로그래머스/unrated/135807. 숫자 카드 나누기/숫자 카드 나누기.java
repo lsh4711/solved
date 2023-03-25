@@ -9,12 +9,9 @@ class Solution {
             boolean boolA = gcdA % i == 0;
             boolean boolB = gcdB % i == 0;
             if(boolA == boolB) continue;
-            int gcdN;
-            int[] arrayN;
-            if(boolA) {
-                gcdN = gcdA;
-                arrayN = arrayB;
-            } else  {
+            int gcdN = gcdA;
+            int[] arrayN = arrayB;
+            if(boolB) {
                 gcdN = gcdB;
                 arrayN = arrayA;
             }
