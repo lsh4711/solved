@@ -1,10 +1,10 @@
 class Solution {
     public int[] solution(int num, int total) {
         int[] answer = new int[num];
-        int start = total / num + (1-num) / 2;
+        int start = total / num - (num - 1) / 2;
         
-        for(int i=0; i<num; i++, start++) answer[i] = start;
+        for(int i = 0; i < num; i++) answer[i] = start++;
         
         return answer;
     }
-}
+}    
