@@ -3,12 +3,11 @@ class Solution {
         int answer = 0;
         
         for(int num : array) {
-            String str = Integer.toString(num);
-            for(int i=0; i<str.length(); i++) {
-                if(str.charAt(i) == 55) answer++;
+            for(; num != 0; num /= 10) {
+                if(num % 10 == 7) answer++;
             }
-        }
+        } 
         
         return answer;
     }
-}
+}             
