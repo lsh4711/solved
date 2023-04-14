@@ -7,8 +7,8 @@ public class Main {
         int A = Integer.parseInt(nums[0]);
         int B = Integer.parseInt(nums[1]);
 
-        if(A < B) System.out.println("<");
-        else if(A > B) System.out.println(">");
+        if(A < B) System.out.println('<');
+        else if(A > B) System.out.println('>');
         else System.out.println("==");
     }
 }
