@@ -11,7 +11,7 @@ public class Main {
             int A = nums.charAt(0) - 48;
             int B = nums.charAt(2) - 48;
             sb.append("Case #").append(i).append(": ").append(A).append(" + ").append(B)
-                    .append(" = ").append(A + B).append("\n");
+                    .append(" = ").append(A + B).append('\n');
         }
         
         System.out.println(sb);
