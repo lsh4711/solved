@@ -8,7 +8,7 @@ public class Main {
         
         for(int i = 0; i < cnt; i++) {
             String nums = br.readLine();
-            sb.append(nums.charAt(0) + nums.charAt(2) - 96).append("\n");
+            sb.append(nums.charAt(0) + nums.charAt(2) - 96).append('\n');
         }
         
         System.out.println(sb);
