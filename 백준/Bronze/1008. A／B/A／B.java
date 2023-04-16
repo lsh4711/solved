@@ -3,8 +3,8 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] nums = br.readLine().split(" ");
+        String nums = br.readLine();
         
-        System.out.println(Integer.parseInt(nums[0]) / (double)Integer.parseInt(nums[1]));
+        System.out.println((double)(nums.charAt(0) - 48) / (nums.charAt(2) - 48));
     }
 }
