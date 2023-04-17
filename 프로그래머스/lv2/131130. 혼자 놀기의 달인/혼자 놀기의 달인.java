@@ -22,4 +22,4 @@ class Solution {
             if(groupCnt[i] == 2) return first * i;
         }
     }
-}
+} 
