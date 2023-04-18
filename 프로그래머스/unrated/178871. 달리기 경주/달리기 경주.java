@@ -6,15 +6,13 @@ class Solution {
         
         for(int i = 0; i < players.length; i++) map.put(players[i], i);
         for(String calling : callings) {
-            int idx = map.get(calling);
-            String left = players[idx - 1];
-            String right = players[idx];
-            map.put(left, idx);
-            map.put(right, idx - 1);
-            players[idx - 1] = right;
-            players[idx] = left;
+            int now = map.get(calling);
+            String prevPlayer = players[now - 1];
+            players[now - 1] = players[now];
+            players[now] = prevPlayer;
+            for(int j = now - 1; j <= now; j++) map.put(players[j], j);
         }
         
         return players;
     }
-}
+} 
