@@ -17,16 +17,16 @@ class Solution {
         label : for(String route : routes) {
             int[] move = ascii[route.charAt(0)];
             int distance = route.charAt(2) - 48;
-            int row = start[0];
-            int col = start[1];
+            int startRow = start[0];
+            int startCol = start[1];
             for(int i = 0; i < distance; i++) {
-                int nextRow = row + move[0] ;
-                int nextCol = col + move[1];
-                if(nextRow < 0 || nextCol < 0 || nextRow >= park.length || nextCol >= park[0].length() || park[nextRow].charAt(nextCol) == 'X') continue label;
-                row = nextRow;
-                col = nextCol;
+                int row = startRow + move[0] ;
+                int col = startCol + move[1];
+                if(row < 0 || col < 0 || row >= park.length || col >= park[0].length() || park[row].charAt(col) == 'X') continue label;
+                startRow = row;
+                startCol = col;
             }
-            start = new int[] {row, col};
+            start = new int[] {startRow, startCol};
         }
         
         return start;
