@@ -7,14 +7,12 @@ class Solution {
         
         for(int i = 0; i < name.length; i++) map.put(name[i], yearning[i]);
         for(int i = 0; i < photo.length; i++) {
-            int score = 0;
             String[] pho = photo[i];
             for(String p : pho) {
-                if(map.get(p) != null) score += map.get(p);
+                if(map.get(p) != null) scores[i] += map.get(p);
             }
-            scores[i] = score;
         }
         
         return scores;
     }
-} 
+}  
