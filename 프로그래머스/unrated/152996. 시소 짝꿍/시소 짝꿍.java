@@ -7,7 +7,7 @@ class Solution {
         for(int i = 0; i < weights.length; i++) {
             int now = weights[i];
             int distinct = distincts[now]++;
-            cnt -= distinct * 3 - distinct;
+            cnt -= distinct * 2;
             for(int j = 2; j <= 4; j++) {
                 int multiple = now * j;
                 if(multiples[multiple] != 0) cnt += multiples[multiple];
