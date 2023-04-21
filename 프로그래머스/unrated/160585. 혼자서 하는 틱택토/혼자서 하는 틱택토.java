@@ -13,10 +13,10 @@ class Solution {
             diaLeft.append(board[i].charAt(i));
             diaRight.append(board[i].charAt(2 - i));
             if(rows.equals(OX[0]) || cols.equals(OX[0])) isWin['O'] = true;
-            if(rows.equals(OX[1]) || cols.equals(OX[1])) isWin['X'] = true;
+            else if(rows.equals(OX[1]) || cols.equals(OX[1])) isWin['X'] = true;
         }
         if(diaLeft.toString().equals(OX[0]) || diaRight.toString().equals(OX[0])) isWin['O'] = true;
-        if(diaLeft.toString().equals(OX[1]) || diaRight.toString().equals(OX[1])) isWin['X'] = true;        
+        else if(diaLeft.toString().equals(OX[1]) || diaRight.toString().equals(OX[1])) isWin['X'] = true;        
         
         if(cnt['O'] > cnt['X'] + 1 || cnt['O'] < cnt['X']) return 0;
         if(isWin['O'] && cnt['O'] == cnt['X'] || isWin['X'] && cnt['O'] != cnt['X']) return 0;
