@@ -1,49 +1,36 @@
 import java.util.*;
 
 class Solution {
-    // public String[] solution(String[][] plans) {
     public ArrayList<String> solution(String[][] plans) {
-        // String[] answer = new String[plans.length];
+        Stack<int[]> stack = new Stack<>();
         ArrayList<String> list = new ArrayList<>();
-        Stack<String[]> stack = new Stack<>();
-
-        for(String[] plan : plans) {
-            String[] time = plan[1].split(":");
-            plan[1] = Integer.toString(Integer.parseInt(time[0]) * 60 + Integer.parseInt(time[1]));
-        }
-        Arrays.sort(plans, (arr1, arr2) -> Integer.parseInt(arr1[1]) - Integer.parseInt(arr2[1]));
+        int[][] plansCopy = new int[plans.length][];
+        
         for(int i = 0; i < plans.length; i++) {
-            String[] plan = plans[i];
-            if(stack.isEmpty()) {
-                stack.push(plan);
-                continue;
-            }
-            String[] prevPlan = stack.peek();
-            int[] prev = {Integer.parseInt(prevPlan[1]), Integer.parseInt(prevPlan[2])};
-            int[] now = {Integer.parseInt(plan[1]), Integer.parseInt(plan[2])};
-            int remain = now[0] - prev[0];
-            if(prev[1] > remain) {
-                prevPlan[1] = Integer.toString(now[0]);
-                prevPlan[2] = Integer.toString(prev[1] - remain);
-                stack.push(plan); 
-                continue;
-            }
-            while(remain > 0 && !stack.isEmpty()) {
-                prevPlan = stack.pop();
-                prev[1] = Integer.parseInt(prevPlan[2]);
-                if(prev[1] <= remain) list.add(prevPlan[0]);
-                else {
-                    prevPlan[1] = Integer.toString(now[0]);
-                    prevPlan[2] = Integer.toString(prev[1] - remain);
-                    stack.push(prevPlan);
-                }
-                remain -= prev[1];
-            }
-            stack.push(plan);
+            String[] hm = plans[i][1].split(":");
+            int minute = Integer.parseInt(hm[0]) * 60 + Integer.parseInt(hm[1]);
+            plansCopy[i] = new int[] {i, minute, Integer.parseInt(plans[i][2])};
         }
-        while(!stack.isEmpty()) list.add(stack.pop()[0]);
+        Arrays.sort(plansCopy, (arr1, arr2) -> arr1[1] - arr2[1]);
+        stack.push(plansCopy[0]);
+        for(int i = 1; i < plansCopy.length; i++) {
+            int[] nextPlan = plansCopy[i];
+            int remain = nextPlan[1] - stack.peek()[1];
+            while(remain > 0 && !stack.isEmpty()) {
+                int[] nowPlan = stack.pop();
+                int nowPlaytime = nowPlan[2];
+                if(nowPlan[2] <= remain) list.add(plans[nowPlan[0]][0]);
+                else {
+                    nowPlan[1] = nextPlan[1];
+                    nowPlan[2] -= remain;
+                    stack.push(nowPlan);
+                }
+                remain -= nowPlaytime;
+            }
+            stack.push(nextPlan);
+        }
+        while(!stack.isEmpty()) list.add(plans[stack.pop()[0]][0]);
 
-        // return answer;
         return list;
     }
 }  
