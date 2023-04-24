@@ -17,7 +17,7 @@ class Solution {
         for(int i = 0; i < 4; i++) {
             int[] dir = dirs[i];
             if(dir[0] == 0 && dir[1] > dir[2]) continue;
-            int length = (int)(Math.pow(dir[0], 2) + (int)Math.pow(dir[1] + dir[2], 2));
+            int length = (int)(Math.pow(dir[0], 2) + Math.pow(dir[1] + dir[2], 2));
             if(result > length) result = length;
         }
         
