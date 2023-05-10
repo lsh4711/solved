@@ -6,12 +6,12 @@ class Solution {
         boolean moveOne = false;
         ArrayList<int[]> result = new ArrayList<>();
         Stack<Integer>[] stacks = new Stack[4];
-        
+
         for(int i = 1; i < 4; i++) stacks[i] = new Stack<>();
         for(int i = n; i > 1; i--) stacks[1].push(i);
         stacks[one].push(1);
         result.add(new int[] {1, one});
-        
+
         while(stacks[3].size() < n) {
             int now = one;
             int go = -1;
@@ -41,7 +41,7 @@ class Solution {
             result.add(new int[] {now, go});
             stacks[go].push(circle);
         }
-        
+
         return result;
     }
 }
