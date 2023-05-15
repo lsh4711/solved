@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
     public String[] solution(int[][] line) {
         ArrayList<int[]> list = new ArrayList<>();
-        
+
         for(int i = 0; i < line.length - 1; i++) {
             int[] line1 = line[i];
             for(int j = i + 1; j < line.length; j++) {
@@ -47,7 +47,7 @@ class Solution {
             }
             result[idx++] = sb.toString();
         }
-        
+
         return result;
     }
 }
