@@ -14,7 +14,7 @@ class Solution {
             String[] split = query[i].replaceAll(" and ", "").split(" ");
             ArrayList<Integer> scores = map.get(split[0].replace("-", ""));
             int score = Integer.parseInt(split[1]);
-            result[i] = (scores == null) ? 0 : binary(scores, score);
+            result[i] = binary(scores, score);
         }
         
         return result;
@@ -30,6 +30,7 @@ class Solution {
     }
     
     static int binary(ArrayList<Integer> scores, int score) {
+        if(scores == null) return 0;
         if(scores.get(0) == -1) {
             scores.sort(null);
             scores.set(0, 0);
