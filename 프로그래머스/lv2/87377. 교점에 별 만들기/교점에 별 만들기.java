@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.ArrayList;
 
 class Solution {
     static ArrayList<int[]> list = new ArrayList<>();
@@ -44,4 +44,4 @@ class Solution {
 
         return result;
     }
-}   
+} 
