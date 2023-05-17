@@ -9,12 +9,12 @@ class Solution {
         int[] yRange = {max, min};
 
         for(int i = 0; i < line.length - 1; i++) {
-            int[] line1 = line[i];
+            long[] line1 = {line[i][0], line[i][1], line[i][2]};
             for(int j = i + 1; j < line.length; j++) {
                 int[] line2 = line[j];
-                long denom = (long)line1[0] * line2[1] - (long)line1[1] * line2[0];
-                long xNum = (long)line1[1] * line2[2] - (long)line1[2] * line2[1];
-                long yNum = (long)line1[2] * line2[0] - (long)line1[0] * line2[2];
+                long denom = line1[0] * line2[1] - line1[1] * line2[0];
+                long xNum = line1[1] * line2[2] - line1[2] * line2[1];
+                long yNum = line1[2] * line2[0] - line1[0] * line2[2];
                 if(denom == 0 || xNum % denom != 0 || yNum % denom != 0) continue;
                 int x = (int)(xNum / denom);
                 int y = (int)(yNum / denom);
