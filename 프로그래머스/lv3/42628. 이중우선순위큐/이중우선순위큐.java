@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.LinkedList;
 
 class Solution {
     public int[] solution(String[] operations) {
@@ -37,4 +37,4 @@ class Solution {
 
         list.add(num);
     }
-}
+}     
