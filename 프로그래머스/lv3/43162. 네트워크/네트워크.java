@@ -22,7 +22,7 @@ class Solution {
         }
         int[] now = computers[go];
         visit[go] = true;
-            
+        
         for (int i = 0; i < now.length; i++) {
             if (now[i] == 1) {
                 dfs(computers, visit, i);
