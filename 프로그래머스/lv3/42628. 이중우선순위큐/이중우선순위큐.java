@@ -1,43 +1,40 @@
-import java.util.Collections;
-import java.util.PriorityQueue;
+import java.util.*;
 
 class Solution {
-    public int[] solution(String[] arguments) {
-        int[] answer = {0,0};
+    public int[] solution(String[] operations) {
+        int[] result = new int[2];
+        LinkedList<Integer> list = new LinkedList<>();
 
-        PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
-        PriorityQueue<Integer> reverse_pq = new PriorityQueue<Integer>(Collections.reverseOrder());
-
-        for(int i=0; i<arguments.length; i++) {
-            String temp[] = arguments[i].split(" ");
-            switch(temp[0]) {
-            case "I" : 
-                pq.add(Integer.parseInt(temp[1]));
-                reverse_pq.add(Integer.parseInt(temp[1]));
-                break;
-            case "D" :
-                if(pq.size() > 0) {
-                    if(Integer.parseInt(temp[1]) == 1) {
-                        // 최댓값 삭제
-                        int max = reverse_pq.poll();
-                        pq.remove(max);
-                    } else {
-                        // 최솟값 삭제
-                        int min = pq.poll();
-                        reverse_pq.remove(min);
-                    }
-                }
-                break;
+        for (String operation : operations) {
+            char oper = operation.charAt(0);
+            int num = Integer.parseInt(operation.substring(2, operation.length()));
+            if (oper == 'I') {
+                insert(list, num);
+            } else if (list.size() == 0) {
+                continue;
+            } else if (num < 0) {
+                list.remove(0);
+            } else {
+                list.remove(list.size() - 1);
             }
         }
+        if (list.size() > 1) result = new int[] {list.get(list.size() - 1), list.get(0)};
 
-        if(pq.size() >= 2) {
-            answer[0] = reverse_pq.poll();
-            answer[1] = pq.poll();
+        return result;
+    }
+
+    static void insert(LinkedList<Integer> list, int num) {
+        if (list.size() == 0) {
+            list.add(num);
+            return;
         }
 
-        System.out.println(answer[0] + ":" + answer[1]);
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i) < num) continue;
+            list.add(i, num);
+            return;
+        }
 
-        return answer;
+        list.add(num);
     }
 }
