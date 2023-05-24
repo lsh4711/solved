@@ -27,7 +27,6 @@ class Solution {
             works[target]--;
             n--;
         }
-        
         for (int work : works) {
             result += work * work;
         }
