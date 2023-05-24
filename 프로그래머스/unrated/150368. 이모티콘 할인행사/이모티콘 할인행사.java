@@ -44,11 +44,11 @@ class Solution {
             }
         }
         if (result[0] < plus) {
-                result[0] = plus;
-                result[1] = income;
+            result[0] = plus;
+            result[1] = income;
         } else if (result[0] == plus && result[1] < income) {
             result[1] = income;
         }
         
     }
-} 
+}  
