@@ -5,7 +5,7 @@ class Solution {
         int splitN = s / n;
         int[] result = new int[n];
         
-        while(n-- > 0) {
+        while (n-- > 0) {
             if (s % (splitN + 1) == 0 && s / (splitN + 1) == result.length - idx) {
                 splitN++;
             }
