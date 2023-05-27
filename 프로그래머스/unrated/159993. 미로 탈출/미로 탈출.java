@@ -1,49 +1,51 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 class Solution {
-    static int[][] moves = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-    
     public int solution(String[] maps) {
-        int[] start = new int[2];
-        int[] lever = new int[2];
+        int totalDistance = 0;
+        int[][] moves = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         
         for (int i = 0; i < maps.length; i++) {
             for (int j = 0; j < maps[0].length(); j++) {
-                if (maps[i].charAt(j) == 'S') {
-                    start[0] = i;
-                    start[1] = j;
-                } else if (maps[i].charAt(j) == 'L') {
-                    lever[0] = i;
-                    lever[1] = j;
+                char now = maps[i].charAt(j);
+                if (now == 'S' || now == 'L') {
+                    char dest = now == 'S' ? 'L' : 'E';
+                    boolean[][] visits = new boolean[maps.length][maps[0].length()];
+                    int distance = toDest(maps, visits, moves, i, j, dest);
+                    if (distance == -1) {
+                        return -1;
+                    }
+                    totalDistance += distance;
                 }
             }
         }
-        int distanceToLever = toDest(maps, new int[maps.length][maps[0].length()], start, 0, 'L');
-        int distanceToEnd = toDest(maps, new int[maps.length][maps[0].length()], lever, 0, 'E');
         
-        if (distanceToLever != (int)1e9 && distanceToEnd != (int)1e9) {
-            return distanceToLever + distanceToEnd;
-        }
-        return -1;
+        return totalDistance;
     }
     
-    static int toDest(String[] maps, int[][] distances, int[] now, int distance, char dest) {
-        distances[now[0]][now[1]] = distance;
-        if (distance == (int)1e9 || maps[now[0]].charAt(now[1]) == dest) {
-            return distance;
-        }
-        int result = (int)1e9;
+    static int toDest(String[] maps, boolean[][] visits, int[][] moves, int row, int col, char dest) {
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[] {row, col, 0});
         
-        for (int i = 0; i < 4; i++) {
-            int[] move = moves[i];
-            int[] next = {now[0] + move[0], now[1] + move[1]};
-            if (next[0] < 0 || next[1] < 0 || next[0] >= maps.length || next[1] >= maps[0].length()
-                    || distances[next[0]][next[1]] != 0 && distances[next[0]][next[1]] <= distance + 1
-                    || maps[next[0]].charAt(next[1]) == 'X') {
-                continue;
+        while (!queue.isEmpty()) {
+            int[] now = queue.poll();
+            if (maps[now[0]].charAt(now[1]) == dest) {
+                return now[2];
             }
-            int distanceToDest = toDest(maps, distances, next, distance + 1, dest);
-            if (result > distanceToDest) result = distanceToDest;
+            for (int i = 0; i < 4; i++) {
+                int[] move = moves[i];
+                row = now[0] + move[0];
+                col = now[1] + move[1];
+                if (row < 0 || col < 0 || row >= maps.length || col >= maps[0].length()
+                        || visits[row][col] || maps[row].charAt(col) == 'X') {
+                    continue;
+                }
+                visits[row][col] = true;
+                queue.add(new int[] {row, col, now[2] + 1});
+            }
         }
         
-        return result;
+        return -1;
     }
 }
