@@ -3,35 +3,36 @@ import java.util.Queue;
 
 class Solution {
     public int solution(String[] maps) {
-        int totalDistance = 0;
         int[][] moves = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         
-        for (int i = 0; i < maps.length; i++) {
+        for (int i = 0; true; i++) {
             for (int j = 0; j < maps[0].length(); j++) {
-                char now = maps[i].charAt(j);
-                if (now == 'S' || now == 'L') {
-                    char dest = now == 'S' ? 'L' : 'E';
-                    boolean[][] visits = new boolean[maps.length][maps[0].length()];
-                    int distance = toDest(maps, visits, moves, i, j, dest);
-                    if (distance == -1) {
-                        return -1;
-                    }
-                    totalDistance += distance;
+                if (maps[i].charAt(j) != 'L') {
+                    continue;
                 }
+                boolean[][] visits = new boolean[maps.length][maps[0].length()];
+                return calculateTime(maps, visits, moves, i, j);
             }
         }
         
-        return totalDistance;
     }
     
-    static int toDest(String[] maps, boolean[][] visits, int[][] moves, int row, int col, char dest) {
+    static int calculateTime(String[] maps, boolean[][] visits, int[][] moves, int row, int col) {
+        int timeFromStart = -1;
+        int timeToEnd = -1;
         Queue<int[]> queue = new LinkedList<>();
         queue.add(new int[] {row, col, 0});
         
-        while (!queue.isEmpty()) {
+        while (timeFromStart == -1 || timeToEnd == -1) {
+            if (queue.isEmpty()) {
+                return -1;
+            }
             int[] now = queue.poll();
-            if (maps[now[0]].charAt(now[1]) == dest) {
-                return now[2];
+            int nowObject = maps[now[0]].charAt(now[1]);
+            if (nowObject == 'S') {
+                timeFromStart = now[2];
+            } else if (nowObject == 'E') {
+                timeToEnd = now[2];
             }
             for (int i = 0; i < 4; i++) {
                 int[] move = moves[i];
@@ -46,6 +47,6 @@ class Solution {
             }
         }
         
-        return -1;
+        return timeFromStart + timeToEnd;
     }
 }
