@@ -10,14 +10,12 @@ class Solution {
         for (int i = n - 1; i >= 0; i--) {
             ranges[i] = new long[] {ranges[i + 1][0] / 5, ranges[i + 1][1] / 5};
         }
-
         for (int i = 1; i <= n; i++) {
             long beforeOneCnt = oneCnts[i - 1];
             long oneCnt = beforeOneCnt * 4;
             long[] range = ranges[i];
             long start = range[0] % 5;
             long end = range[1] % 5;
-
             if (!isStartZero) {
                 if (start > 2) {
                     oneCnt++;
