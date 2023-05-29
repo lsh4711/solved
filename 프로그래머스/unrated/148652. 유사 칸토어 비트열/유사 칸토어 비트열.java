@@ -1,20 +1,43 @@
 class Solution {
     public int solution(int n, long l, long r) {
-        int answer = 0;
-
-        for (long val = l; val <= r; val++) {
-            answer += query(n, val - 1);
+        long pentaToL = encode(--l);
+        long pentaToR = encode(r);
+        int oneCntToL = decode(pentaToL);
+        int oneCntToR = decode(pentaToR);
+        
+        return oneCntToR - oneCntToL;
+    }
+    
+    static long encode(long num) {
+        long result = 0;
+        long exponent = 1;
+        
+        while (num > 0) {
+            long remain = num % 5;
+            if (remain == 2) {
+                result = result / exponent * exponent;
+            }
+            result += remain * exponent;
+            num = num / 5;
+            exponent *= 10;
         }
-
-        return answer;
+        
+        return result;
     }
-
-    int query(int n, long l) {
-        if (n == 0 || l == 0)
-            return 1;
-        if (l % 5 == 2)
-            return 0;
-        return query(n - 1, l / 5);
+    
+    static int decode(long num) {
+        int[] arr = {0, 1, 2, 2, 3};
+        int exponent = 4;
+        int result = arr[(int)(num % 10)];
+        num /= 10;
+        
+        while (num > 0) {
+            int remain = (int)(num % 10);
+            result += arr[remain] * exponent;
+            num /= 10;
+            exponent *= 4;
+        }
+        
+        return result;
     }
-
-}
+} 
