@@ -13,7 +13,9 @@ class Solution {
                 cnt++;
                 continue;
             }
-            outPoint = Math.min(outPoint, nextRoute[1]);
+            if (outPoint > nextRoute[1]) {
+                outPoint = nextRoute[1];
+            }
         }
      
         return cnt;
