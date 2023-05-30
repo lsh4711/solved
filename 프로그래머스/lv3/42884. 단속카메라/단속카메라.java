@@ -1,23 +1,19 @@
-import java.util.PriorityQueue;
+import java.util.Arrays;
 
 class Solution {
     public int solution(int[][] routes) {
+        Arrays.sort(routes, (arr1, arr2) -> arr1[0] - arr2[0]);
         int cnt = 1;
-        PriorityQueue<int[]> pq = new PriorityQueue<>((arr1, arr2) -> arr1[0] - arr2[0]);
-        for (int[] route : routes) {
-            pq.add(route);
-        }
-        int[] route = pq.poll();
+        int outPoint = routes[0][1];
         
-        while (!pq.isEmpty()) {
-            int[] nextRoute = pq.poll();
-            if (route[1] < nextRoute[0]) {
-                route = nextRoute;
+        for (int i = 1; i < routes.length; i++) {
+            int[] nextRoute = routes[i];
+            if (outPoint < nextRoute[0]) {
+                outPoint = nextRoute[1];
                 cnt++;
                 continue;
             }
-            route[0] = nextRoute[0];
-            route[1] = Math.min(route[1], nextRoute[1]);
+            outPoint = Math.min(outPoint, nextRoute[1]);
         }
      
         return cnt;
