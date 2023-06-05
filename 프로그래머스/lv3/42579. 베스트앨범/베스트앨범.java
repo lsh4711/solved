@@ -4,6 +4,7 @@ import java.util.HashMap;
 class Solution {
     public ArrayList<Integer> solution(String[] genres, int[] plays) {
         ArrayList<int[]> datas = new ArrayList<>();
+        ArrayList<Integer> results = new ArrayList<>();
         HashMap<String, Integer> map = new HashMap<>();
 
         for (int i = 0; i < genres.length; i++) {
@@ -17,11 +18,7 @@ class Solution {
             add(datas.get(idx), i, play);
         }
         datas.sort((arr1, arr2) -> arr2[0] - arr1[0]);
-
-        ArrayList<Integer> results = new ArrayList<>();
-
         for (int[] data : datas) {
-            System.out.println(java.util.Arrays.toString(data));
             results.add(data[1]);
             if (data[4] != 0) {
                 results.add(data[3]);
