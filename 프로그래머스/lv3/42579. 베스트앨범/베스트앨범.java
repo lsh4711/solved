@@ -5,9 +5,9 @@ class Solution {
     public ArrayList<Integer> solution(String[] genres, int[] plays) {
         HashMap<String, Integer> map = new HashMap<>();
         ArrayList<int[]> datas = new ArrayList<>();
-        
+
         int cnt = 0;
-        
+
         for (int i = 0; i < genres.length; i++) {
             String genre = genres[i];
             int play = plays[i];
@@ -22,7 +22,7 @@ class Solution {
 
         ArrayList<Integer> results = new ArrayList<>();
         int idx = 0;
-        
+
         for (int[] data : datas) {
             System.out.println(java.util.Arrays.toString(data));
             results.add(data[1]);
@@ -30,13 +30,13 @@ class Solution {
                 results.add(data[3]);
             }
         }
-        
+
         return results;
     }
-    
+
     static int add(int[] value, int idx, int play) {
         int cnt = 0;
-        
+
         value[0] += play;
         if (value[2] < play) {
             int tmpIdx = idx;
@@ -50,7 +50,7 @@ class Solution {
             value[3] = idx;
             value[4] = play;
         }
-        
+
         return cnt;
     }
 }
