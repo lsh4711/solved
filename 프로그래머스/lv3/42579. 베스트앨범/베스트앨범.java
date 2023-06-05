@@ -3,10 +3,8 @@ import java.util.HashMap;
 
 class Solution {
     public ArrayList<Integer> solution(String[] genres, int[] plays) {
-        HashMap<String, Integer> map = new HashMap<>();
         ArrayList<int[]> datas = new ArrayList<>();
-
-        int cnt = 0;
+        HashMap<String, Integer> map = new HashMap<>();
 
         for (int i = 0; i < genres.length; i++) {
             String genre = genres[i];
@@ -21,7 +19,6 @@ class Solution {
         datas.sort((arr1, arr2) -> arr2[0] - arr1[0]);
 
         ArrayList<Integer> results = new ArrayList<>();
-        int idx = 0;
 
         for (int[] data : datas) {
             System.out.println(java.util.Arrays.toString(data));
@@ -34,9 +31,7 @@ class Solution {
         return results;
     }
 
-    static int add(int[] value, int idx, int play) {
-        int cnt = 0;
-
+    static void add(int[] value, int idx, int play) {
         value[0] += play;
         if (value[2] < play) {
             int tmpIdx = idx;
@@ -51,6 +46,5 @@ class Solution {
             value[4] = play;
         }
 
-        return cnt;
     }
 }
