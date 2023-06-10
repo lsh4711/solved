@@ -1,7 +1,9 @@
 import java.util.HashSet;
+import java.util.PriorityQueue;
 
 class Solution {
     static HashSet<String> set = new HashSet<>();
+    static PriorityQueue<String> pq = new PriorityQueue<>();
     
     public int solution(String[] user_id, String[] banned_id) {
         dfs(user_id, banned_id, new String[banned_id.length], 0);
@@ -43,24 +45,15 @@ class Solution {
     }
     
     static void sortAndAdd(String[] users) {
-        boolean[] visits = new boolean[users.length];
         StringBuilder sb = new StringBuilder();
         
-        for (int i = 0; i < users.length; i++) {
-            String min = "";
-            int minIdx = -1;
-            for (int j = 0; j < users.length; j++) {
-                String user = users[j];
-                if (visits[j] || min.compareTo(user) >= 0) {
-                    continue;
-                }
-                min = user;
-                minIdx = j;
-            }
-            visits[minIdx] = true;
-            sb.append(min);
+        for (String user : users) {
+            pq.add(user);
+        }
+        while (!pq.isEmpty()) {
+            sb.append(pq.poll());
         }
         
         set.add(sb.toString());
     }
-}
+}  
