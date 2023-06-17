@@ -4,13 +4,13 @@ class Solution {
     
     public int solution(int[] sticker) {
         length = sticker.length;
-
+        
         if (length == 1) {
             return sticker[0];
         } else if (length == 2) {
             return Math.max(sticker[0], sticker[1]);
         }
-        for (int i = -1; i <= 1; i++) {
+        for (int i = 0; i <= 2; i++) {
             calculate(sticker, i);
         }
         
@@ -27,8 +27,6 @@ class Solution {
             int minus2 = getIdx(idx - 2);
             dp[idx] = Math.max(dp[minus3], dp[minus2]) + sticker[idx];
         }
-        start = getIdx(start);
-        
         dp[start] -= sticker[start];
         if (dp[start] > max) {
             max =  dp[start];
@@ -37,10 +35,10 @@ class Solution {
     }
     
     static int getIdx(int idx) {
-        if (idx >= length) {
-            return idx - length;
-        } else if (idx < 0) {
+        if (idx < 0) {
             return idx + length;
+        } else if (idx >= length) {
+            return idx - length;
         }
 
         return idx;
