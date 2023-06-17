@@ -3,9 +3,8 @@ class Solution {
     static int max = 0;
     
     public int solution(int[] sticker) {
-        length = sticker.length; // 다른 메소드에서 재사용한다. sticker 배열의 크기를 저장
-        
-        // 길이가 1, 2인 경우는 적용되지 않으므로 바로 return
+        length = sticker.length;
+
         if (length == 1) {
             return sticker[0];
         } else if (length == 2) {
