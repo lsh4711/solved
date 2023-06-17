@@ -5,9 +5,10 @@ class Solution {
     public int solution(int[] sticker) {
         length = sticker.length;
         
-        if (length < 4) {
-            findMax(sticker);
-            return max;
+        if (length == 1) {
+            return sticker[0];
+        } else if (length == 2) {
+            return Math.max(sticker[0], sticker[1]);
         }
         for (int i = -1; i <= 1; i++) {
             calculate(sticker, i);
@@ -34,16 +35,7 @@ class Solution {
         }
 
     }
-
-    static void findMax(int[] array) {
-        for (int num : array) {
-            if (num > max) {
-                max = num;
-            }
-        }
-
-    }
-
+    
     static int getIdx(int idx) {
         if (idx >= length) {
             return idx - length;
