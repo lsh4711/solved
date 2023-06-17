@@ -1,21 +1,49 @@
-public class Solution {
+class Solution {
+    static int length;
+    static int max = 0;
+    
     public int solution(int[] sticker) {
-        if(sticker.length == 1){
+        length = sticker.length; // 다른 메소드에서 재사용한다. sticker 배열의 크기를 저장
+        
+        // 길이가 1, 2인 경우는 적용되지 않으므로 바로 return
+        if (length == 1) {
             return sticker[0];
-        } else if(sticker.length == 2){
+        } else if (length == 2) {
             return Math.max(sticker[0], sticker[1]);
-        } else {
-            return Math.max(findMaxSum(0, sticker.length - 2, sticker), findMaxSum(1, sticker.length - 1, sticker));
         }
+        for (int i = -1; i <= 1; i++) {
+            calculate(sticker, i);
+        }
+        
+        return max;
     }
+    
+    static void calculate(int[] sticker, int start) {
+        int end = start + length;
+        int[] dp = new int[length];
 
-    private int findMaxSum(int from, int to, int[] sticker) {
-        int[] sumArr = new int[sticker.length - 1];
-        sumArr[0] = sticker[from];
-        sumArr[1] = Math.max(sticker[from + 1], sticker[from]);
-        for (int i = from + 2, sumIndex = 2; i <= to; i++, sumIndex++) {
-            sumArr[sumIndex] = Math.max((sticker[i] + sumArr[sumIndex - 2]), sumArr[sumIndex - 1]);
+        for (int i = start; i <= end; i++) {
+            int idx = getIdx(i);
+            int minus3 = getIdx(idx - 3);
+            int minus2 = getIdx(idx - 2);
+            dp[idx] = Math.max(dp[minus3], dp[minus2]) + sticker[idx];
         }
-        return sumArr[sumArr.length - 1];
+        start = getIdx(start);
+        
+        dp[start] -= sticker[start];
+        if (dp[start] > max) {
+            max =  dp[start];
+        }
+
+    }
+    
+    static int getIdx(int idx) {
+        if (idx >= length) {
+            return idx - length;
+        } else if (idx < 0) {
+            return idx + length;
+        }
+
+        return idx;
     }
 }
