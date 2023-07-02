@@ -22,7 +22,7 @@ class Solution {
     }
     
     static int dijkstra(ArrayList<int[]>[] routes) {
-        int totalDistance = 0;
+        int totalCost = 0;
         boolean[] visits = new boolean[routes.length];
         visits[0] = true;
         
@@ -34,13 +34,15 @@ class Solution {
             if (visits[now[1]]) {
                 continue;
             }
-            for (int[] route : routes[now[1]]) {
-                pq.add(route);
-            }
             visits[now[1]] = true;
-            totalDistance += now[2];
+            totalCost += now[2];
+            for (int[] route : routes[now[1]]) {
+                if (!visits[route[1]]) {
+                    pq.add(route);
+                }
+            }
         }
         
-        return totalDistance;
+        return totalCost;
     }
 }   
