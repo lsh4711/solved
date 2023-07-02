@@ -40,7 +40,6 @@ class Solution {
             for (int[] route : routes[now[1]]) {
                 pq.add(new int[] {now[1], route[0], route[1]});
             }
-            System.out.printf("a: %d, b: %d, c: %d\n", now[0], now[1], now[2]);
             visits[now[1]] = true;
             totalDistance += now[2];
         }
