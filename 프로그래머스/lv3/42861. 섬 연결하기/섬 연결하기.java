@@ -10,8 +10,7 @@ class Solution {
         for (int i = 0; i < n; i++) {
             routes[i] = new ArrayList<>();
         }
-        for (int i = 0; i < costs.length; i++) {
-            int[] cost = costs[i];
+        for (int[] cost : costs) {
             int a = cost[0];
             int b = cost[1];
             int c = cost[2]; 
