@@ -15,30 +15,28 @@ class Solution {
             int a = cost[0];
             int b = cost[1];
             int c = cost[2]; 
-            routes[a].add(new int[] {b, c});
-            routes[b].add(new int[] {a, c});
+            routes[a].add(new int[] {a, b, c});
+            routes[b].add(new int[] {b, a, c});
         }
-        for (int[] route : routes[0]) {
-            pq.add(new int[] {0, route[0], route[1]});
-        }
-        boolean[] visits = new boolean[n];
-        visits[0] = true;
         
-        int totalDistance = dijkstra(routes, visits);
-        
-        return totalDistance;
+        return dijkstra(routes);
     }
     
-    static int dijkstra(ArrayList<int[]>[] routes, boolean[] visits) {
+    static int dijkstra(ArrayList<int[]>[] routes) {
         int totalDistance = 0;
+        boolean[] visits = new boolean[routes.length];
+        visits[0] = true;
         
+        for (int[] route : routes[0]) {
+            pq.add(route);
+        }
         while (!pq.isEmpty()) {
             int[] now = pq.poll();
             if (visits[now[1]]) {
                 continue;
             }
             for (int[] route : routes[now[1]]) {
-                pq.add(new int[] {now[1], route[0], route[1]});
+                pq.add(route);
             }
             visits[now[1]] = true;
             totalDistance += now[2];
@@ -46,4 +44,4 @@ class Solution {
         
         return totalDistance;
     }
-}
+} 
