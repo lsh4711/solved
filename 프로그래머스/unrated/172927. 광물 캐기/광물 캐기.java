@@ -21,6 +21,7 @@ class Solution {
                 stacks[idx][2]++;
             }
         }
+        System.out.println(java.util.Arrays.deepToString(stacks));
         Arrays.sort(stacks, (a1, a2) -> {
             if (a1[0] == a2[0]) {
                 if (a1[1] == a2[1]) {
@@ -38,8 +39,6 @@ class Solution {
                 result += stack[0] * 5 + stack[1] + stack[2];
             } else if (picks[2]-- > 0) {
                 result += stack[0] * 25 + stack[1] * 5 + stack[2];
-            } else {
-                break;
             }
         }
         
