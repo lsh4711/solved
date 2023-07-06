@@ -6,7 +6,7 @@ public class Solution {
         String str = sc.next();
         StringBuilder sb = new StringBuilder();
         
-        for(char c : str.toCharArray()) {
+        for (char c : str.toCharArray()) {
             if (c >= 97) {
                 c -= 32;
             } else {
