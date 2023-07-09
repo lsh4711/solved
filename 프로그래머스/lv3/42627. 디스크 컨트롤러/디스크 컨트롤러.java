@@ -3,8 +3,8 @@ import java.util.PriorityQueue;
 
 class Solution {
     public int solution(int[][] jobs) {
-        int realTime = 0;
         int result = 0;
+        int realTime = 0;
         PriorityQueue<int[]> pq = new PriorityQueue<>((a1, a2) -> a1[1] - a2[1]);
         
         Arrays.sort(jobs, (a1, a2) -> {
@@ -34,4 +34,4 @@ class Solution {
         
         return result / jobs.length;
     }
-}
+} 
