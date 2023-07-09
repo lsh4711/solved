@@ -3,6 +3,7 @@ import java.util.PriorityQueue;
 
 class Solution {
     public int solution(int[][] jobs) {
+        int time = 0;
         int result = 0;
         PriorityQueue<int[]> pq = new PriorityQueue<>((a1, a2) -> a1[1] - a2[1]);
         
@@ -12,24 +13,18 @@ class Solution {
             }
             return a1[1] - a2[1];
         });
-
-        int time = -1;
-        
         for (int[] job : jobs) {
             while (job[0] > time && !pq.isEmpty()) {
                 int[] poll = pq.poll();
                 result += time - poll[0] + poll[1];
                 time += poll[1];
             }
-            if (job[0] <= time) { // < vs <=
+            if (job[0] <= time) {
                 pq.add(job);
                 continue;
             }
-            if (pq.isEmpty()) {
-                result += job[1];
-                time = job[0] + job[1];
-                continue;
-            }
+            result += job[1];
+            time = job[0] + job[1];
         }
         while (!pq.isEmpty()) {
             int[] poll = pq.poll();
