@@ -8,10 +8,7 @@ class Solution {
             int s = query[0];
             int e = query[1];
             int k = query[2];
-            for (int j = s; j <= e; j++) {
-                if (j >= arr.length) {
-                    break;
-                }
+            for (int j = s; j < arr.length && j <= e; j++) {
                 int now = arr[j];
                 if (now <= k) {
                     continue;
