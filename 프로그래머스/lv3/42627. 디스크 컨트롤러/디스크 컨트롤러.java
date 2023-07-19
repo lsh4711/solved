@@ -12,7 +12,7 @@ class Solution {
                 return a1[0] - a2[0];
             }
             return a1[1] - a2[1];
-        }); 
+        });
         for (int[] job : jobs) {
             while (job[0] > realTime && !pq.isEmpty()) {
                 int[] poll = pq.poll();
