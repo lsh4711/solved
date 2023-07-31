@@ -1,9 +1,5 @@
-import java.util.Arrays;
-
 class Solution {
     public long solution(int n, int[] times) {
-        Arrays.sort(times);
-        
         long start = 1;
         long end = (long)1e18;
         
