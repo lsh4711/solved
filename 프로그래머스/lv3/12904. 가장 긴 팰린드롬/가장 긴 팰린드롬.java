@@ -3,10 +3,10 @@ class Solution {
         int max = 1;
         boolean[][] dp = new boolean[s.length()][s.length()];
         
-        for (int i = 0; i < s.length(); i++) { // 자기 자신은 항상 펠린드롬
+        for (int i = 0; i < s.length(); i++) {
             dp[i][i] = true;
         }
-        for (int i = 0; i < s.length() - 1; i++) { // 두 문자가 같으면 항상 펠린드롬
+        for (int i = 0; i < s.length() - 1; i++) {
             char left = s.charAt(i);
             char right = s.charAt(i + 1);
             if (left == right) {
@@ -14,7 +14,7 @@ class Solution {
                 max = 2;
             }
         }
-        for (int i = 2; i < s.length(); i++) { // 양 끝 문자가 같을 때, 그 사이의 문자열이 펠린드롬이면 펠린드롬
+        for (int i = 2; i < s.length(); i++) {
             for (int j = 0; j < s.length() - i; j++) {
                 char left = s.charAt(j);
                 char right = s.charAt(j + i);
