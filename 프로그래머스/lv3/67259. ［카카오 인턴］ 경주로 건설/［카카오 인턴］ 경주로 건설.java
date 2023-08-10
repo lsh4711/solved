@@ -29,8 +29,8 @@ class Solution {
                 int nextRow = row + move[0];
                 int nextCol = col + move[1];
                 int min = getMinCost(routes[row][col], i, max);
-                if (nextRow < 0 || nextCol < 0 || nextRow >= N || nextCol >= N || board[nextRow][nextCol] == 1
-                        || routes[nextRow][nextCol][i] != 0 && routes[nextRow][nextCol][i] <= min) {
+                if (!isScope(nextRow, nextCol, N) || board[nextRow][nextCol] == 1
+                        || routes[nextRow][nextCol][i] <= min) {
                     continue;
                 }
                 routes[nextRow][nextCol][i] = min;
@@ -58,5 +58,12 @@ class Solution {
         }
 
         return min;
+    }
+    
+    static boolean isScope(int row, int col, int N) {
+        if (row < 0 || col < 0 || row >= N || col >= N) {
+            return false;
+        }
+        return true;
     }
 }
