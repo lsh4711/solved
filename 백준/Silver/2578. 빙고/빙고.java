@@ -6,13 +6,14 @@ import java.util.StringTokenizer;
 public class Main {
     static int[][] arr;
     static boolean[][] visited;
+    static int bingoCnt = 0;
+    static int[][] moves = {{0, 1}, {1, 0}, {1, 1}, {-1, 1}};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         arr = new int[5][5];
         visited = new boolean[5][5];
-
         int[][] idxs = new int[26][2];
 
         for (int i = 0; i < 5; i++) {
@@ -35,7 +36,7 @@ public class Main {
                 int col = coor[1];
                 visited[row][col] = true;
                 cnt++;
-                if (isThreeBingo()) {
+                if (isThreeBingo(row, col, cnt)) {
                     System.out.println(cnt);
                     return;
                 }
@@ -44,68 +45,35 @@ public class Main {
 
     }
 
-    private static boolean isThreeBingo() {
-        int bingoCnt = 0;
-
-        // 세로
-        for (int i = 0; i < 5; i++) {
-            int tmpCnt = 0;
-            for (int r = 0; r < 5; r++) {
-                if (visited[r][i] == false) {
-                    continue;
-                } else {
-                    tmpCnt++;
-                }
-                if (tmpCnt == 5) {
-                    bingoCnt++;
-                }
-            }
+    private static boolean isThreeBingo(int row, int col, int cnt) {
+        isBingo(row, 0, moves[0]);
+        isBingo(0, col, moves[1]);
+        if (row - col == 0) {
+            isBingo(0, 0, moves[2]);
         }
-
-        // 가로
-        for (int i = 0; i < 5; i++) {
-            int tmpCnt = 0;
-            for (int c = 0; c < 5; c++) {
-                if (visited[i][c] == false) {
-                    continue;
-                } else {
-                    tmpCnt++;
-                }
-                if (tmpCnt == 5) {
-                    bingoCnt++;
-                }
-            }
-        }
-
-        // 대각선
-        int tmpCnt = 0;
-        for (int i = 0; i < 5; i++) {
-            if (visited[i][i] == true) {
-                tmpCnt++;
-            } else {
-                break;
-            }
-            if (tmpCnt == 5) {
-                bingoCnt++;
-            }
-        }
-
-        // 대각선
-        tmpCnt = 0;
-        for (int i = 0; i < 5; i++) {
-            if (visited[i][4 - i] == true) {
-                tmpCnt++;
-            } else {
-                break;
-            }
-            if (tmpCnt == 5) {
-                bingoCnt++;
-            }
+        if (row + col == 4) {
+            isBingo(4, 0, moves[3]);
         }
 
         if (bingoCnt > 2) {
             return true;
         }
         return false;
+    }
+
+    private static void isBingo(int row, int col, int[] move) {
+        int cnt = 0;
+
+        for (int i = 0; i < 5; i++) {
+            boolean isCheck = visited[row][col];
+            if (isCheck) {
+                cnt++;
+            }
+            row += move[0];
+            col += move[1];
+        }
+        if (cnt == 5) {
+            bingoCnt++;
+        }
     }
 }
