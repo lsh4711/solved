@@ -2,6 +2,14 @@ import java.util.ArrayList;
 
 class Solution {
     public ArrayList<String> solution(String myStr) {
+//         간단 풀이
+//         myStr = myStr.replaceAll("a|b|c", " ");
+//         String[] split = myStr.trim().split(" +");
+        
+//         if (split[0].length() == 0) {
+//             split[0] = "EMPTY";
+//         }
+//         return split;
         ArrayList<String> list = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         
