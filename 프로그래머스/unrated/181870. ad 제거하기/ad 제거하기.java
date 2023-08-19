@@ -1,27 +1,16 @@
+import java.util.ArrayList;
+
 class Solution {
     public String[] solution(String[] strArr) {
-        int length = 0;
-        boolean[] visits = new boolean[strArr.length];
+        ArrayList<String> list = new ArrayList<>();
         
-        for (int i = 0; i < strArr.length; i++) {
-            String str = strArr[i];
+        for (String str : strArr) {
             int idx = str.indexOf("ad");
             if (idx == -1) {
-                visits[i] = true;
-                length++;
+                list.add(str);
             }
         }
         
-        int idx = 0;
-        String[] result = new String[length];
-        
-        for (int i = 0; i < visits.length; i++) {
-            boolean visit = visits[i];
-            if (visit) {
-                result[idx++] = strArr[i];
-            }
-        }
-        
-        return result;
+        return list.toArray(new String[0]);
     }
 }
