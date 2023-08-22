@@ -1,34 +1,31 @@
 class Solution {
     public int solution(int a, int b, int c) {
+        int[][] dices = new int[5][4];
+        dices[1] = new int[] {a, b, c, a + b + c};
+        
         if (a != b && a != c && b != c) {
-            return a + b + c;
+            return recursive(dices, 1);
         }
-        if (a == b && a == c && b == c) {
-            return getResult(a, b, c, 3);
+        if (a != b || a != c || b != c) {
+            return recursive(dices, 2);
         }
-        return getResult(a, b, c, 2);
+        return recursive(dices, 3);
     }
     
-    static int getResult(int a, int b, int c, int cnt) {
-        int result = a + b + c;
-        
-        for (int i = 2; i <= cnt; i++) {
-            int sum = getPow(a, i);
-            sum += getPow(b, i);
-            sum += getPow(c, i);
-            result *= sum;
+    static int recursive(int[][] dices, int idx) {
+        int result = dices[idx][3];
+
+        if (result != 0) {
+            return result;
         }
-        
-        return result;
-    }
-    
-    static int getPow(int num, int cnt) {
-        int result = num;
-        
-        while (--cnt > 0) {
-            result *= num;
+
+        result = recursive(dices, idx - 1);
+        int sum = 0;
+
+        for (int i = 0; i < 3; i++) {
+            sum += dices[idx][i] = dices[idx - 1][i] * dices[1][i];
         }
-        
-        return result;
+
+        return dices[idx][3] = result * sum;
     }
 }
