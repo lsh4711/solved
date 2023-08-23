@@ -8,6 +8,9 @@ class Solution {
             sumArr[r] += num;
         }
         
-        return Math.max(sumArr[0], sumArr[1]);
+        if (sumArr[0] > sumArr[1]) {
+            return sumArr[0];
+        }
+        return sumArr[1];
     }
 }
