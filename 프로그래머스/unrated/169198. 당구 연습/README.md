@@ -1,10 +1,10 @@
 # [unrated] 당구 연습 - 169198 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/169198#) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/169198) 
 
 ### 성능 요약
 
-메모리: 78.1 MB, 시간: 0.70 ms
+메모리: 76.2 MB, 시간: 0.97 ms
 
 ### 구분
 
@@ -12,7 +12,7 @@
 
 ### 채점결과
 
-Empty
+정확성: 100.0<br/>합계: 100.0 / 100.0
 
 ### 문제 설명
 
