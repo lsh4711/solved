@@ -28,19 +28,19 @@ class Solution {
         return results;
     }
 
-    static void add(int[] value, int idx, int play) {
-        value[0] += play;
-        if (value[2] < play) {
+    static void add(int[] values, int idx, int play) {
+        values[0] += play;
+        if (values[2] < play) {
             int tmpIdx = idx;
             int tmpPlay = play;
-            idx = value[1];
-            play = value[2];
-            value[1] = tmpIdx;
-            value[2] = tmpPlay;
+            idx = values[1];
+            play = values[2];
+            values[1] = tmpIdx;
+            values[2] = tmpPlay;
         }
-        if (value[4] < play) {
-            value[3] = idx;
-            value[4] = play;
+        if (values[4] < play) {
+            values[3] = idx;
+            values[4] = play;
         }
 
     }
