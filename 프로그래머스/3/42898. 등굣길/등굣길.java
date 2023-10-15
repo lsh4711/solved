@@ -19,4 +19,4 @@ class Solution {
         
         return map[n - 1][m - 1];
     }
-}
+} 
