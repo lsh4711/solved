@@ -1,9 +1,9 @@
 function solution(n) {
-    let sqrt = Math.sqrt(n);
+    let num = parseInt(Math.sqrt(n));
     
-    if (Number.isInteger(sqrt)) {
-        sqrt++;
-        return sqrt * sqrt;
+    if (num * num === n) {
+        num++;
+        return num * num;
     }
     return -1;
 }
