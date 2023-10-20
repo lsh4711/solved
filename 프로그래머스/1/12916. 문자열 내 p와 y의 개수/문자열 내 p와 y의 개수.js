@@ -1,16 +1,15 @@
 function solution(s){
-    const asciis = Array.from({length: 90}, () => 0);
+    let pCnt = 0;
+    let yCnt = 0;
     
     for (str of s.split("")) {
-        let idx = str.charCodeAt();
-        if (idx >= 97) {
-            idx -= 32;
+        str = str.toUpperCase();
+        if (str === "P") {
+            pCnt++;
+        } else if (str === "Y") {
+            yCnt++;
         }
-        asciis[idx]++;
     }
-    
-    const pCnt = asciis['P'.charCodeAt()];
-    const yCnt = asciis['Y'.charCodeAt()];
     
     return pCnt === yCnt;
 }
