@@ -13,9 +13,8 @@ function solution(cards1, cards2, goal) {
         if (idx2 < cards2.length && word2 == word) {
             idx2++;
             continue;
-        } else {
-            return "No";
         }
+        return "No";
     }
     
     return "Yes";
