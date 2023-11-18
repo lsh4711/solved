@@ -20,4 +20,4 @@ function solution(s, skip, index) {
     }
     
     return result.join("");
-}
+} 
