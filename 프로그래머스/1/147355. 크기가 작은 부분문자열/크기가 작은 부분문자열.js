@@ -1,18 +1,21 @@
 function solution(t, p) {
     let result = 0;
-    const pNum = parseInt(p);
+    let start = 0;
+    let end = p.length;
     
-    for (let start = 0; start <= t.length - p.length; start++) {
-        const end = start + p.length;
-        const num = stringToNumber(t.substring(start, end));
-        if (num <= pNum) {
+    while (end <= t.length) {
+        const string = t.substring(start, end);
+        
+        if (isExpectedValue(string, p)) {
             result++;
         }
+        start++;
+        end++;
     }
     
     return result;
 }
 
-const stringToNumber = (string) => {
-    return parseInt(string);
+const isExpectedValue = (string, p) => {
+    return string <= p;
 }
