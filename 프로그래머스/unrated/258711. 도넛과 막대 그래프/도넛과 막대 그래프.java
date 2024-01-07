@@ -13,22 +13,20 @@ class Solution {
     public int[] solution(int[][] edges) {
         int maxNodeNum = 0;
         
-        
         for (int[] edge : edges) {
             int startNum = edge[0];
             int destNum = edge[1];
-            
             int max = startNum > destNum ? startNum : destNum;
             if (max > maxNodeNum) {
                 maxNodeNum = max;
             }
-            // maxNodeNum
         }
         
         startCounts = new int[maxNodeNum + 1];
         visitCounts = new int[maxNodeNum + 1];
         
         ArrayList<Integer>[] nodes = new ArrayList[maxNodeNum + 1];
+        
         for (int i = 0; i < nodes.length; i++) {
             nodes[i] = new ArrayList<>();
         }
@@ -36,11 +34,9 @@ class Solution {
         for (int[] edge : edges) {
             int startNum = edge[0];
             int destNum = edge[1];
-            
             startCounts[startNum]++;
             visitCounts[destNum]++;
         }
-        
         
         for (int i = 1; i < visitCounts.length; i++) {
             int startCount = startCounts[i];
@@ -64,7 +60,6 @@ class Solution {
             visitGraph(num, nodes);
         }
         
-        
         return new int[] {rootNum, donutCount, stickCount, roopCount};
     }
     
@@ -74,6 +69,7 @@ class Solution {
            || visitRecursive(currentNum, nodes[currentNum].get(0), nodes)) {
             stickCount++;
         }
+        
     }
     
     private boolean visitRecursive(int startNum, int currentNum, ArrayList<Integer>[] nodes) {
