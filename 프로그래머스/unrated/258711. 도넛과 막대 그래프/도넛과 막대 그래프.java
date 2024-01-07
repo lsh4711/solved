@@ -45,27 +45,18 @@ class Solution {
     }
     
     private void visitGraphs(ArrayList<Integer> rootNode) {
-        for (int num : rootNode) {
-            visitGraph(num, nodes);
+        for (int dest : rootNode) {
+            visitGraphRecursively(dest, nodes[dest]);
         }
         
     }
     
-    private void visitGraph(int currentNum, ArrayList<Integer>[] nodes) {
-        if (startCounts[currentNum] == 0
-           || startCounts[currentNum] == 1 && visitCounts[currentNum] == 1) {
-            stickCount++;
-            return;
-        }
-        if (startCounts[currentNum] == 2) {
-            roopCount++;
-            return;
-        }
-        visitRecursively(currentNum, nodes[currentNum].get(0), nodes);
-    }
-    
-    private void visitRecursively(int startNum, int currentNum, ArrayList<Integer>[] nodes) {
-        if (startCounts[currentNum] == 0) {
+    private void visitGraphRecursively(int startNum, ArrayList<Integer> currentNode) {
+        int currentNum;
+        
+        if (currentNode != null) {
+            currentNum = currentNode.get(0);
+        } else {
             stickCount++;
             return;
         }
@@ -77,6 +68,6 @@ class Solution {
             donutCount++;
             return;
         }
-        visitRecursively(startNum, nodes[currentNum].get(0), nodes);
+        visitGraphRecursively(startNum, nodes[currentNum]);
     }
 }
