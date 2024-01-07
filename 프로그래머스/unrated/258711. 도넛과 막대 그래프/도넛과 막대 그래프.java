@@ -6,9 +6,11 @@ class Solution {
     private int stickCount;
     private int roopCount;
     
-    private int[] startCounts = new int[1000001];
-    private int[] visitCounts = new int[1000001];
-    private ArrayList<Integer>[] nodes = new ArrayList[1000001];
+    private static final int MAX = 1000001;
+    
+    private int[] startCounts = new int[MAX];
+    private int[] visitCounts = new int[MAX];
+    private ArrayList<Integer>[] nodes = new ArrayList[MAX];
     
     public int[] solution(int[][] edges) {
         initGraphsAndCounts(edges);
@@ -59,10 +61,10 @@ class Solution {
             roopCount++;
             return;
         }
-        visitRecursive(currentNum, nodes[currentNum].get(0), nodes);
+        visitRecursively(currentNum, nodes[currentNum].get(0), nodes);
     }
     
-    private void visitRecursive(int startNum, int currentNum, ArrayList<Integer>[] nodes) {
+    private void visitRecursively(int startNum, int currentNum, ArrayList<Integer>[] nodes) {
         if (startCounts[currentNum] == 0) {
             stickCount++;
             return;
@@ -75,6 +77,6 @@ class Solution {
             donutCount++;
             return;
         }
-        visitRecursive(startNum, nodes[currentNum].get(0), nodes);
+        visitRecursively(startNum, nodes[currentNum].get(0), nodes);
     }
 }
