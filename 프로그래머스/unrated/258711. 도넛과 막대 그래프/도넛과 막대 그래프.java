@@ -8,39 +8,45 @@ class Solution {
     
     private int[] startCounts = new int[1000001];
     private int[] visitCounts = new int[1000001];
-    
     private ArrayList<Integer>[] nodes = new ArrayList[1000001];
     
     public int[] solution(int[][] edges) {
+        initGraphsAndCounts(edges);
+        rootNum = getRootNum();
+        visitGraphs(nodes[rootNum]);
+        
+        return new int[] {rootNum, donutCount, stickCount, roopCount};
+    }
+    
+    private void initGraphsAndCounts(int[][] edges) {
         for (int[] edge : edges) {
             int startNum = edge[0];
             int destNum = edge[1];
-            
             startCounts[startNum]++;
             visitCounts[destNum]++;
-            
             if (nodes[startNum] == null) {
                 nodes[startNum] = new ArrayList<>();
             }
-            ArrayList<Integer> startNode = nodes[startNum];
-            startNode.add(destNum);
-        }
-        for (int i = 1; i < visitCounts.length; i++) {
-            int startCount = startCounts[i];
-            int visitCount = visitCounts[i];
-            if (startCount > 1 && visitCount == 0) {
-                rootNum = i;
-                break;
-            }
+            nodes[startNum].add(destNum);
         }
         
-        ArrayList<Integer> rootNode = nodes[rootNum];
+    }
+    
+    private int getRootNum() {
+        int currentNum = 1;
         
+        while (startCounts[currentNum] < 2 || visitCounts[currentNum] > 0) {
+            currentNum++;
+        }
+        
+        return currentNum;
+    }
+    
+    private void visitGraphs(ArrayList<Integer> rootNode) {
         for (int num : rootNode) {
             visitGraph(num, nodes);
         }
         
-        return new int[] {rootNum, donutCount, stickCount, roopCount};
     }
     
     private void visitGraph(int currentNum, ArrayList<Integer>[] nodes) {
@@ -69,9 +75,6 @@ class Solution {
             donutCount++;
             return;
         }
-        
-        ArrayList<Integer> currentNode = nodes[currentNum];
-        
-        visitRecursive(startNum, currentNode.get(0), nodes);
+        visitRecursive(startNum, nodes[currentNum].get(0), nodes);
     }
 }
