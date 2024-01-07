@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 class Solution {
     private int rootNum;
@@ -10,87 +9,88 @@ class Solution {
     private int[] startCounts;
     private int[] visitCounts;
     
+    private ArrayList<Integer>[] nodes;
+    
     public int[] solution(int[][] edges) {
-        int maxNodeNum = 0;
+        int max = 0;
         
         for (int[] edge : edges) {
             int startNum = edge[0];
             int destNum = edge[1];
-            int max = startNum > destNum ? startNum : destNum;
-            if (max > maxNodeNum) {
-                maxNodeNum = max;
+            if (startNum > max) {
+                max = startNum;
+            }
+            if (destNum > max) {
+                max = destNum;
             }
         }
         
-        startCounts = new int[maxNodeNum + 1];
-        visitCounts = new int[maxNodeNum + 1];
+        startCounts = new int[max + 1];
+        visitCounts = new int[max + 1];
+    
+        nodes = new ArrayList[max + 1];
         
-        ArrayList<Integer>[] nodes = new ArrayList[maxNodeNum + 1];
-        
-        for (int i = 0; i < nodes.length; i++) {
-            nodes[i] = new ArrayList<>();
-        }
         
         for (int[] edge : edges) {
             int startNum = edge[0];
             int destNum = edge[1];
+            
             startCounts[startNum]++;
             visitCounts[destNum]++;
+            
+            if (nodes[startNum] == null) {
+                nodes[startNum] = new ArrayList<>();
+            }
+            ArrayList<Integer> startNode = nodes[startNum];
+            startNode.add(destNum);
         }
-        
         for (int i = 1; i < visitCounts.length; i++) {
             int startCount = startCounts[i];
             int visitCount = visitCounts[i];
-            if (startCount > 1 && visitCount == 0) {                
+            if (startCount > 1 && visitCount == 0) {
                 rootNum = i;
                 break;
             }
         }
         
-        for (int[] edge : edges) {
-            int startNum = edge[0];
-            int destNum = edge[1];
-            ArrayList<Integer> startNode = nodes[startNum];
-            startNode.add(destNum);
-        }
-        
         ArrayList<Integer> rootNode = nodes[rootNum];
         
-        for (int num : rootNode) {
-            visitGraph(num, nodes);
+        for (int destNum : rootNode) {
+            visitGraph(destNum, nodes);
         }
         
         return new int[] {rootNum, donutCount, stickCount, roopCount};
     }
     
     private void visitGraph(int currentNum, ArrayList<Integer>[] nodes) {
-        if (startCounts[currentNum] == 1 && visitCounts[currentNum] == 1
-           || startCounts[currentNum] == 0
-           || visitRecursive(currentNum, nodes[currentNum].get(0), nodes)) {
+        if (startCounts[currentNum] == 0
+           || startCounts[currentNum] == 1 && visitCounts[currentNum] == 1) {
             stickCount++;
+            return;
         }
-        
-    }
-    
-    private boolean visitRecursive(int startNum, int currentNum, ArrayList<Integer>[] nodes) {
         if (startCounts[currentNum] == 2) {
             roopCount++;
-            return false;
+            return;
+        }
+        visitRecursive(currentNum, nodes[currentNum].get(0), nodes);
+    }
+    
+    private void visitRecursive(int startNum, int currentNum, ArrayList<Integer>[] nodes) {
+        if (startCounts[currentNum] == 0) {
+            stickCount++;
+            return;
+        }
+        if (startCounts[currentNum] == 2) {
+            roopCount++;
+            return;
         }
         if (startNum == currentNum) {
             donutCount++;
-            return false;
+            return;
         }
         
         ArrayList<Integer> currentNode = nodes[currentNum];
         
-        for (int destNum : currentNode) {
-            if (visitRecursive(startNum, destNum, nodes)) {
-                continue;
-            }
-            return false;
-        }
-        
-        return true;
+        visitRecursive(startNum, currentNode.get(0), nodes);
     }
 }
