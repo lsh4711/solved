@@ -6,31 +6,12 @@ class Solution {
     private int stickCount;
     private int roopCount;
     
-    private int[] startCounts;
-    private int[] visitCounts;
+    private int[] startCounts = new int[1000001];
+    private int[] visitCounts = new int[1000001];
     
-    private ArrayList<Integer>[] nodes;
+    private ArrayList<Integer>[] nodes = new ArrayList[1000001];
     
     public int[] solution(int[][] edges) {
-        int max = 0;
-        
-        for (int[] edge : edges) {
-            int startNum = edge[0];
-            int destNum = edge[1];
-            if (startNum > max) {
-                max = startNum;
-            }
-            if (destNum > max) {
-                max = destNum;
-            }
-        }
-        
-        startCounts = new int[max + 1];
-        visitCounts = new int[max + 1];
-    
-        nodes = new ArrayList[max + 1];
-        
-        
         for (int[] edge : edges) {
             int startNum = edge[0];
             int destNum = edge[1];
@@ -55,8 +36,8 @@ class Solution {
         
         ArrayList<Integer> rootNode = nodes[rootNum];
         
-        for (int destNum : rootNode) {
-            visitGraph(destNum, nodes);
+        for (int num : rootNode) {
+            visitGraph(num, nodes);
         }
         
         return new int[] {rootNum, donutCount, stickCount, roopCount};
