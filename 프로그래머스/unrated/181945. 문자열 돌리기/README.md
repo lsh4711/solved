@@ -1,10 +1,10 @@
-# [unrated] 문자열 돌리기 - 181945 
+# [level unrated] 문자열 돌리기 - 181945 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181945) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181945?language=javascript) 
 
 ### 성능 요약
 
-메모리: 74.1 MB, 시간: 142.04 ms
+메모리: 31.9 MB, 시간: 370.89 ms
 
 ### 구분
 
@@ -12,7 +12,11 @@
 
 ### 채점결과
 
-Empty
+정확성: 100.0<br/>합계: 100.0 / 100.0
+
+### 제출 일자
+
+2024년 1월 2일 23:0:5
 
 ### 문제 설명
 
@@ -40,4 +44,4 @@ d
 e
 </code></pre></div>
 
-> 출처: 프로그래머스 코딩 테스트 연습, https://programmers.co.kr/learn/challenges
+> 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
