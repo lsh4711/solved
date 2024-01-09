@@ -11,7 +11,7 @@ rl.on('line', function (line) {
 }).on('close',function(){
     str = input[0];
     
-    const chars = [...str];
-    
-    chars.forEach(t => console.log(t));
+    for (const char of str.split("")) {
+        console.log(char);
+    }
 });
