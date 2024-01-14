@@ -8,5 +8,4 @@ public class Solution {
 
         System.out.printf("%d + %d = %d", a, b, a + b);
     }
-    
 }
