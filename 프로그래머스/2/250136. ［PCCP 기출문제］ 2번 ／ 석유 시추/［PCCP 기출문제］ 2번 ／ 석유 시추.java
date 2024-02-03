@@ -1,18 +1,18 @@
 class Solution {
-    private int[] line;
+    private int[] cumulativeAmounts;
     private int[][] moves = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     
     public int solution(int[][] land) {
-        line = new int[land[0].length];
+        cumulativeAmounts = new int[land[0].length];
         
         for (int row = 0; row < land.length; row++) {
             for (int col = 0; col < land[0].length; col++) {
                 if (!isOil(land, row, col)) {
                     continue;
                 }
-                boolean[] visit = new boolean[line.length];
+                boolean[] visit = new boolean[cumulativeAmounts.length];
                 int amount = dfs(land, visit, row, col);
-                updateCumulativeAmount(visit, amount);
+                updateCumulativeAmounts(visit, amount);
             }
         }
         
@@ -43,10 +43,10 @@ class Solution {
         return amount;
     }
     
-    private void updateCumulativeAmount(boolean[] visit, int amount) {
+    private void updateCumulativeAmounts(boolean[] visit, int amount) {
         for (int idx = 0; idx < visit.length; idx++) {
             if (visit[idx]) {
-                line[idx] += amount;
+                cumulativeAmounts[idx] += amount;
             }
         }
         
@@ -55,7 +55,7 @@ class Solution {
     private int getMaxAmount() {
         int maxAmount = 0;
         
-        for (int amount : line) {
+        for (int amount : cumulativeAmounts) {
             if (amount > maxAmount) {
                 maxAmount = amount;
             }
