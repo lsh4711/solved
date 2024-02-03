@@ -3,17 +3,6 @@ class Solution {
     private int[][] moves = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     
     public int solution(int[][] land) {
-        if (land.length == 5 && land[0].length == 5) {
-            
-            for (int i = 0; i < 5; i++) {
-                if (land[i].length != 5) {
-                    throw new RuntimeException();
-                }
-            }
-            
-            return 0;
-        }
-        
         line = new int[land[0].length];
         
         for (int row = 0; row < land.length; row++) {
@@ -23,11 +12,7 @@ class Solution {
                 }
                 boolean[] visit = new boolean[line.length];
                 int amount = dfs(land, visit, row, col);
-                for (int idx = 0; idx < visit.length; idx++) {
-                    if (visit[idx]) {
-                        line[idx] += amount;
-                    }
-                }
+                updateCumulativeAmount(visit, amount);
             }
         }
         
@@ -58,15 +43,24 @@ class Solution {
         return amount;
     }
     
-    private int getMaxAmount() {
-        int max = 0;
-        
-        for (int amount : line) {
-            if (amount > max) {
-                max = amount;
+    private void updateCumulativeAmount(boolean[] visit, int amount) {
+        for (int idx = 0; idx < visit.length; idx++) {
+            if (visit[idx]) {
+                line[idx] += amount;
             }
         }
         
-        return max;
+    }
+    
+    private int getMaxAmount() {
+        int maxAmount = 0;
+        
+        for (int amount : line) {
+            if (amount > maxAmount) {
+                maxAmount = amount;
+            }
+        }
+        
+        return maxAmount;
     }
 }
