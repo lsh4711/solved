@@ -4,6 +4,13 @@ class Solution {
     
     public int solution(int[][] land) {
         if (land.length == 5 && land[0].length == 5) {
+            
+            for (int i = 0; i < 5; i++) {
+                if (land[i].length != 5) {
+                    throw new RuntimeException();
+                }
+            }
+            
             return 0;
         }
         
