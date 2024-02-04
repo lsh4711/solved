@@ -3,11 +3,11 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class Main {
-    private static int result = (int)1e9;
+    private static int totalChickenDistance = (int)1e9;
+    private static ArrayList<int[]> homes = new ArrayList<>();
+    private static ArrayList<int[]> chickens = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -15,30 +15,26 @@ public class Main {
 
         int N = Integer.parseInt(split[0]);
         int M = Integer.parseInt(split[1]);
-        int[][] city = new int[N][N];
-        ArrayList<int[]> chickens = new ArrayList<>();
 
-        for (int i = 0; i < N; i++) {
+        for (int row = 0; row < N; row++) {
             String[] blocks = br.readLine().split(" ");
-            for (int j = 0; j < N; j++) {
-                int blockNum = Integer.parseInt(blocks[j]);
-                if (blockNum == 2) {
-                    chickens.add(new int[] {i, j});
+            for (int col = 0; col < N; col++) {
+                int blockNum = Integer.parseInt(blocks[col]);
+                if (blockNum == 1) {
+                    homes.add(new int[] {row, col});
+                } else if (blockNum == 2) {
+                    chickens.add(new int[] {row, col});
                 }
-                city[i][j] = blockNum;
             }
         }
 
-        dfs(city, chickens, M, chickens.size(), -1);
-        System.out.println(result);
+        dfs(M, chickens.size(), -1);
+        System.out.println(totalChickenDistance);
     }
 
-    private static void dfs(int[][] city, ArrayList<int[]> chickens, int M, int chickenCnt, int idx) {
-        if (M == chickenCnt) {
-            int totalChickenDistance = calculateTotalChickenDistance(city);
-            if (totalChickenDistance < result) {
-                result = totalChickenDistance;
-            }
+    private static void dfs(int M, int surviveChickenCnt, int idx) {
+        if (M >= surviveChickenCnt) {
+            updateTotalChickenDistance(homes, chickens);
             return;
         }
 
@@ -47,60 +43,27 @@ public class Main {
                 continue;
             }
             int[] chicken = chickens.get(i);
-            city[chicken[0]][chicken[1]] = 0;
-            dfs(city, chickens, M, chickenCnt - 1, i);
-            city[chicken[0]][chicken[1]] = 2;
+            chickens.set(i, null);
+            dfs(M, surviveChickenCnt - 1, i);
+            chickens.set(i, chicken);
         }
 
     }
 
-    private static int calculateTotalChickenDistance(int[][] city) {
-        int N = city.length;
-        int totalChickenDistance = 0;
+    private static void updateTotalChickenDistance(ArrayList<int[]> homes, ArrayList<int[]> chickens) {
+        int sum = 0;
 
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                int blockNum = city[i][j];
-                if (blockNum == 1) {
-                    totalChickenDistance += getNearestChickenDistance(city, i, j);
-                }
-            }
-        }
-
-        return totalChickenDistance;
-    }
-
-    private static int getNearestChickenDistance(int[][] city, int row, int col) {
-        int[][] moves = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-        boolean[][] visitMap = new boolean[city.length][city.length];
-
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[] {row, col});
-
-        while (!queue.isEmpty()) {
-            int[] poll = queue.poll();
-            int currentRow = poll[0];
-            int currentCol = poll[1];
-            if (city[currentRow][currentCol] == 2) {
-                return getChickenDistance(row, col, currentRow, currentCol);
-            }
-            for (int[] move : moves) {
-                int nextRow = currentRow + move[0];
-                int nextCol = currentCol + move[1];
-                if (!isInRange(city.length, nextRow, nextCol) || visitMap[nextRow][nextCol]) {
+        for (int[] home : homes) {
+            int minDistance = (int)1e9;
+            for (int[] chicken : chickens) {
+                if (chicken == null) {
                     continue;
                 }
-                visitMap[nextRow][nextCol] = true;
-                queue.add(new int[] {nextRow, nextCol});
+                minDistance = Math.min(minDistance, getChickenDistance(home[0], home[1], chicken[0], chicken[1]));
             }
+            sum += minDistance;
         }
-
-        return 0;
-    }
-
-    private static boolean isInRange(int length, int row, int col) {
-        return 0 <= row && row < length
-                && 0 <= col && col < length;
+        totalChickenDistance = Math.min(totalChickenDistance, sum);
     }
 
     private static int getChickenDistance(int homeRow, int homeCol, int chickenRow, int chickenCol) {
