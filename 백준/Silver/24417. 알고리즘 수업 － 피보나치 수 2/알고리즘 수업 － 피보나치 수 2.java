@@ -3,15 +3,16 @@ import java.io.InputStreamReader;
 
 public class Main {
     private int fib_dp(int n) {
-        int[] f = new int[n+1];
-
-        f[1] = f[2] = 1;
+        int minus1 = 1;
+        int num = 1;
 
         for (int i = 3; i <= n; i++) {
-            f[i] = (f[i-1] + f[i-2]) % 1000000007;
+            int temp = num;
+            num = (minus1 + num) % 1000000007;
+            minus1 = temp;
         }
 
-        return f[n];
+        return num;
     }
 
     private void solution() throws Exception {
