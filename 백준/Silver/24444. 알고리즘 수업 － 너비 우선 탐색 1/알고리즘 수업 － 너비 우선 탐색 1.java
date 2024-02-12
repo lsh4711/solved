@@ -1,76 +1,64 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.io.*;
 
 public class Main {
-    private ArrayList<Integer>[] nodes;
+    static int n, m, r;
+    static int[] ch;
+    static ArrayList<ArrayList<Integer>> list;
 
-    public static void main(String[] args) throws IOException {
-        new Main().solution();
+    public static void bfs(int r){
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(r);
+        int cnt = 1;
+        ch[r] = 1;
+
+        while(!q.isEmpty()){
+            int cur = q.poll();
+            Collections.sort(list.get(cur));
+
+            for(int i : list.get(cur)){
+                if(ch[i] == 0){
+                    cnt++;
+                    ch[i] = cnt;
+                    q.offer(i);
+                }
+            }
+        }
     }
 
-    public void solution() throws IOException {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         StringBuilder sb = new StringBuilder();
 
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
-        int R = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        int r = Integer.parseInt(st.nextToken());
 
-        nodes = new ArrayList[N + 1];
+        ch = new int[n+1];
+        list = new ArrayList<>();
 
-        for (int i = 0; i < nodes.length; i++) {
-            nodes[i] = new ArrayList<>();
+        for(int i = 0; i <= n; i++){
+            list.add(new ArrayList<Integer>());
         }
-        for (int i = 0; i < M; i++) {
+
+        for(int i = 0; i < m; i++){
             String line = br.readLine();
             String[] split = line.split(" ");
 
-            int start = Integer.parseInt(split[0]);
-            int end = Integer.parseInt(split[1]);
+            int n1 = Integer.parseInt(split[0]);
+            int n2 = Integer.parseInt(split[1]);
 
-            nodes[start].add(end);
-            nodes[end].add(start);
+            list.get(n1).add(n2);
+            list.get(n2).add(n1);
         }
-        for (ArrayList<Integer> node : nodes) {
-            node.sort(null);
-        }
-        bfs(R, sb);
 
+        bfs(r);
+        
+        for(int i = 1; i <= n; i++){
+            sb.append(ch[i]).append('\n');
+        }
+        
         System.out.println(sb);
-    }
-
-    private void bfs(int start, StringBuilder sb) {
-        Queue<Integer> queue = new LinkedList<>();
-        boolean[] visit = new boolean[nodes.length];
-        int[] orders = new int[nodes.length];
-        int cnt = 1;
-
-        visit[start] = true;
-        queue.add(start);
-        orders[start] = cnt++;
-        while (!queue.isEmpty()) {
-            int now = queue.poll();
-            ArrayList<Integer> node = nodes[now];
-
-            for (int dest : node) {
-                if (visit[dest]) {
-                    continue;
-                }
-                visit[dest] = true;
-                orders[dest] = cnt++;
-                queue.add(dest);
-            }
-
-        }
-        for (int i = 1; i < orders.length; i++) {
-            sb.append(orders[i]).append('\n');
-        }
-
     }
 }
