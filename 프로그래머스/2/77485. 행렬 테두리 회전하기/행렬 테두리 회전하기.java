@@ -1,61 +1,48 @@
 class Solution {
-    private int[][] board;
-    
+    static int map[][];
     public int[] solution(int rows, int columns, int[][] queries) {
-        int[] result = new int[queries.length];
-        int idx = 0;
-        
-        initBoard(rows, columns);
-        
-        for (int[] query : queries) {
-            result[idx++] = rotate(query);
-        }
-        
-        return result;
-    }
-    
-    private void initBoard(int rows, int columns) {
-        board = new int[rows][columns];
-        int num = 1;
-        
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < columns; col++) {
-                board[row][col] = num++;
+        int[] answer = new int[queries.length];
+
+        map=new int[rows+1][columns+1];
+        int idx=1;
+        for(int i=1; i<=rows; i++){
+            for(int j=1; j<=columns; j++){
+                map[i][j]=idx++;
             }
         }
-        
-    }
-    
-    private int rotate(int[] query) {
-        int[][] moves = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-        int[] currentPoint = {query[0] - 1, query[1] - 1};
-        
-        int previousNum = board[currentPoint[0]][currentPoint[1]];
-        int min = previousNum;
-        
-        for (int[] move : moves) {
-            while (true) {
-                int[] nextPoint = getNextPoint(currentPoint, move);
-                if (!isValidPoint(nextPoint, query)) {
-                    break;
-                }
-                int temp = board[nextPoint[0]][nextPoint[1]];
-                board[nextPoint[0]][nextPoint[1]] = previousNum;
-                previousNum = temp;
-                currentPoint = nextPoint;
-                min = Math.min(min, previousNum);
+        for(int i=0; i<queries.length; i++){
+
+            answer[i]=rotate(queries[i][0],queries[i][1],queries[i][2],queries[i][3]);
+
+        }
+
+        return answer;
+
+
+    }static int rotate(int x1,int y1,int x2,int y2){
+        int x=x1;
+        int y=y1;
+        int[]dx={0,-1,0,1};
+        int[]dy={1,0,-1,0};
+        int dir=3;
+        int temp=map[x][y];
+        int min=temp;
+        while(true){
+            if(x==x2&&y==y1){
+                dir=0;
+            }
+             if(x==x2&&y==y2)dir=1;
+             if(x==x1&&y==y2)dir=2;
+            map[x][y]=map[x+dx[dir]][y+dy[dir]];
+            x+=dx[dir];
+            y+=dy[dir];
+            min=Math.min(map[x][y],min);
+            if(x==x1&&y==y1){
+                map[x1][y1+1]=temp;
+                break;
             }
         }
-        
+
         return min;
-    }
-    
-    private int[] getNextPoint(int[] point, int[] move) {
-        return new int[] {point[0] + move[0], point[1] + move[1]};
-    }
-    
-    private boolean isValidPoint(int[] point, int[] query) {
-        return query[0] - 1 <= point[0] && point[0] < query[2]
-            && query[1] - 1 <= point[1] && point[1] < query[3];
     }
 }
