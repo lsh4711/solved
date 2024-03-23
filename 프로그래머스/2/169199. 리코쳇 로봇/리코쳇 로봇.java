@@ -68,7 +68,7 @@ class Solution {
     
     private boolean isValidPoint(String[] board, int[] point) {
         return 0 <= point[0] && point[0] < board.length
-                && 0 <= point[1] && point[1] < board[0].length()
-                && board[point[0]].charAt(point[1]) != 'D';
+            && 0 <= point[1] && point[1] < board[0].length()
+            && board[point[0]].charAt(point[1]) != 'D';
     }
 }
