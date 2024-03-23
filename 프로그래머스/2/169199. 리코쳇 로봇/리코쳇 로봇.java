@@ -11,16 +11,18 @@ class Solution {
     }
     
     private void initPoints(String[] board) {
-        for (int row = 0; row < board.length; row++) {
-            String line = board[row];
-            for (int col = 0; col < line.length(); col++) {
-                char pointName = line.charAt(col);
+        int row = 0;
+        for (String line : board) {
+            int col = 0;
+            for (char pointName : line.toCharArray()) {
                 if (pointName == 'R') {
                     startPoint = new int[] {row, col};
                 } else if (pointName == 'G') {
                     endPoint = new int[] {row, col};
                 }
+                col++;
             }
+            row++;
         }
     }
     
@@ -45,17 +47,16 @@ class Solution {
                     currentPoint = nextPoint;
                     isMoved = true;
                 }
-                if (!isMoved) {
+                int targetDistance = distanceBoard[currentPoint[0]][currentPoint[1]];
+                if (!isMoved
+                    || targetDistance > 0 && targetDistance <= previousDistance + 1) {
                     continue;
                 }
                 if (board[currentPoint[0]].charAt(currentPoint[1]) == 'G')  {
                     return previousDistance + 1;
                 }
-                int targetDistance = distanceBoard[currentPoint[0]][currentPoint[1]];
-                if (targetDistance == 0 || targetDistance > previousDistance + 1) {
-                    distanceBoard[currentPoint[0]][currentPoint[1]] = previousDistance + 1;
-                    deque.add(currentPoint);
-                }
+                distanceBoard[currentPoint[0]][currentPoint[1]] = previousDistance + 1;
+                deque.add(currentPoint);
             }
         }
         return -1;
@@ -70,5 +71,4 @@ class Solution {
                 && 0 <= point[1] && point[1] < board[0].length()
                 && board[point[0]].charAt(point[1]) != 'D';
     }
-    
 }
