@@ -1,58 +1,42 @@
-import java.util.Deque;
-import java.util.ArrayDeque;
-
 class Solution {
-    private int count = 0;
-    
     public long solution(int cap, int n, int[] deliveries, int[] pickups) {
-        Deque<int[]> deliveryStack = new ArrayDeque<>();
-        Deque<int[]> pickupStack = new ArrayDeque<>();
+        int idx = n - 1;
+        int deliveryIdx = idx;
+        int pickupIdx = idx;
         long totalDistance = 0;
         
-        for (int i = 0; i < n; i++) {
-            int delivery = deliveries[i];
-            int pickup = pickups[i];
-            if (delivery != 0) {
-                deliveryStack.add(new int[] {i, delivery});
+        while (idx >= 0) {
+            int delivery = deliveries[idx];
+            int pickup = pickups[idx];
+            if (delivery == 0 && pickup == 0) {
+                idx--;
+                continue;
             }
-            if (pickup != 0) {
-                pickupStack.add(new int[] {i, pickup});
-            }
-        }
-        
-        while(!deliveryStack.isEmpty() || !pickupStack.isEmpty()) {
-            int[] deliveryInfo = deliveryStack.peekLast();
-            int[] pickupInfo = pickupStack.peekLast();
-            int furthestIdx = getFurthestHounseIndex(deliveryInfo, pickupInfo);
-            totalDistance += (furthestIdx + 1) * 2;
-            process(deliveryStack, cap);
-            process(pickupStack, cap);
+            totalDistance += (idx + 1) * 2;
+            deliveryIdx = move(deliveries, deliveryIdx, cap);
+            pickupIdx = move(pickups, pickupIdx, cap);
+            idx = Math.max(deliveryIdx, pickupIdx);
         }
         
         return totalDistance;
     }
-
-    private int getFurthestHounseIndex(int[] deliveryInfo, int[] pickupInfo) {
-        if (deliveryInfo == null) {
-            return pickupInfo[0];
+    
+    private int move(int[] houses, int idx, int cap) {
+        if (idx < 0) {
+            return -1;
         }
         
-        if (pickupInfo == null) {
-            return deliveryInfo[0];
-        }
-        return Math.max(deliveryInfo[0], pickupInfo[0]);
-    }
-    
-    private void process(Deque<int[]> stack, int cap) {
-        while (!stack.isEmpty() && cap > 0) {
-            int[] info = stack.peekLast();
-            if (info[1] > cap) {
-                info[1] -= cap;
-                break;
+        while (idx >= 0 && cap > 0) {
+            int amount = houses[idx];
+            if (amount <= cap) {
+                cap -= amount;
+                houses[idx--] = 0;
+                continue;
             }
-            cap -= info[1];
-            stack.removeLast();
+            houses[idx] -= cap;
+            break;
         }
+        
+        return idx;
     }
-    
 }
