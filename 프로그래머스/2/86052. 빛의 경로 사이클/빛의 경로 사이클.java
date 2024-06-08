@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 class Solution {
-    private static final int[][] moves = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    private static final int[][] MOVES = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
     private Node[][] board;
     private final ArrayList<Integer> result = new ArrayList<>();
@@ -46,8 +46,8 @@ class Solution {
     private Node[] getNextNodes(int row, int col) {
         Node[] nodes = new Node[4];
 
-        for (int directionIdx = 0; directionIdx < moves.length; directionIdx++) {
-            int[] coordinate = getNextCoordinate(row, col, moves[directionIdx]);
+        for (int directionIdx = 0; directionIdx < MOVES.length; directionIdx++) {
+            int[] coordinate = getNextCoordinate(row, col, MOVES[directionIdx]);
             nodes[directionIdx] = board[coordinate[0]][coordinate[1]];
         }
 
@@ -61,7 +61,7 @@ class Solution {
     }
 
     private void go(Node startNode) {
-        for (int directionIdx = 0; directionIdx < moves.length; directionIdx++) {
+        for (int directionIdx = 0; directionIdx < MOVES.length; directionIdx++) {
             int distance = 0;
             node = startNode;
             outputDirectionIndex = directionIdx;
