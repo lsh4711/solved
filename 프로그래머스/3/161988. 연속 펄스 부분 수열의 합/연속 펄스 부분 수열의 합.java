@@ -2,32 +2,22 @@ import java.util.ArrayList;
 
 class Solution {
     public long solution(int[] sequence) {
-        int[] copy1 = combinePulse(sequence.clone(), -1);
-        int[] copy2 = combinePulse(sequence.clone(), 1);
-        
-        return Math.max(getMax(copy1), getMax(copy2));
+        return Math.max(getMax(sequence, -1), getMax(sequence, 1));
     }
     
-    private int[] combinePulse(int[] array, int basePulseNumber) {
-        for (int i = 0; i < array.length; i++) {
-            array[i] *= basePulseNumber;
-            basePulseNumber *= -1;
-        }
-        
-        return array;
-    }
-    
-    private long getMax(int[] array) {
+    private long getMax(int[] array, int basePulseNumber) {
         ArrayList<Long> list = new ArrayList<>();
         long sum = 0;
         
         for (int num : array) {
+            num *= basePulseNumber;
             if (sum < 0 && num > 0
                || sum > 0 && num < 0) {
                 list.add(sum);
                 sum = 0;
             }
             sum += num;
+            basePulseNumber *= -1;
         }
         
         list.add(sum);
