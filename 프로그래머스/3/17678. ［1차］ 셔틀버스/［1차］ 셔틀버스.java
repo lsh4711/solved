@@ -16,12 +16,10 @@ class Solution {
         while (n > 0) {
             busTime += t;
             remain = m;
-            
             while (!pq.isEmpty() && remain > 0 && pq.peek() <= busTime) {
                 lastCrewTime = pq.poll();
                 remain--;
             }
-            
             n--;
         }
         
