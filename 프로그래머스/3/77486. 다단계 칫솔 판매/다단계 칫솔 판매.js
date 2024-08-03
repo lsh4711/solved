@@ -41,11 +41,6 @@ function solution(enroll, referral, seller, amount) {
         });
     }
     
-    // enroll.forEach(personName => {
-    //     const {name, profits} = map.get(personName);
-    //     console.log(name, profits);
-    // })
-    
     return enroll.map(name => map.get(name).money);
 }
 
