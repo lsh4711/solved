@@ -1,47 +1,53 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Queue;
 
 class Solution {
     public int solution(int n, int[][] edge) {
-        ArrayList<Integer>[] nodes = new ArrayList[n + 1];
-        
-        for (int i = 0; i <= n; i++) {
-            nodes[i] = new ArrayList<>();
-        }
-        for (int[] line : edge) {
-            int a = line[0];
-            int b = line[1];
-            nodes[a].add(b);
-            nodes[b].add(a);
-        }
         int[] distances = new int[n + 1];
-        Queue<Integer> queue = new LinkedList<>();
+        ArrayList<ArrayList<Integer>> nodes = new ArrayList<>();
+        
+        for (int i = 0; i <= distances.length; i++) {
+            nodes.add(new ArrayList<>());
+        }
+        
+        for (int[] line : edge) {
+            int start = line[0];
+            int dest = line[1];
+            nodes.get(start).add(dest);
+            nodes.get(dest).add(start);
+        }
+        
+        
+        return bfs(nodes, distances);
+    }
+    
+    private int bfs(ArrayList<ArrayList<Integer>> nodes, int[] distances) {
+        int maxDistance = 0;
+        int[] distanceCounts = new int[distances.length];
+        Deque<Integer> queue = new LinkedList<>();
+        
+        Arrays.fill(distanceCounts, 0);
+        distances[1] = 0;
         queue.add(1);
-
+        
         while (!queue.isEmpty()) {
-            int now = queue.poll();
-            ArrayList<Integer> node = nodes[now];
-            for (int dest : node) {
-                if (distances[dest] == 0 || distances[dest] > distances[now] + 1) {
-                    distances[dest] = distances[now] + 1;
-                    queue.add(dest);
+            int currentNode = queue.pollFirst();
+            int currentDistance = distances[currentNode];
+            ArrayList<Integer> dests = nodes.get(currentNode);
+            for (int dest : dests) {
+                if (dest == 1 || distances[dest] > 0) {
+                    continue;
                 }
-            }
-        }
-        int max = 0;
-        int cnt = 0;
-        
-        for (int i = 2; i <= n; i++) {
-            int distance = distances[i];
-            if (distance > max) {
-                max = distance;
-                cnt = 1;
-            } else if (distance == max) {
-                cnt++;
+                int nextDistance = currentDistance + 1;
+                distances[dest] = nextDistance;
+                queue.add(dest);
+                maxDistance = Math.max(maxDistance, nextDistance);
+                distanceCounts[nextDistance]++;
             }
         }
         
-        return cnt;
+        return distanceCounts[maxDistance];
     }
 }
