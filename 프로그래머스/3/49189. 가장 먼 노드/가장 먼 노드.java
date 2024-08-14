@@ -19,7 +19,6 @@ class Solution {
             nodes.get(dest).add(start);
         }
         
-        
         return bfs(nodes, distances);
     }
     
