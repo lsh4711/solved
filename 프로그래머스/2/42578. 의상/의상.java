@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 
 class Solution {
     public int solution(String[][] clothes) {
@@ -13,15 +11,9 @@ class Solution {
             map.put(cloth[1], list);
         }
         
-        ArrayList<ArrayList<String>> clothList = new ArrayList<>();
-        
-        for (Map.Entry<String, ArrayList<String>> entry : map.entrySet()) {
-            clothList.add(entry.getValue());
-        }
-        
         int total = 1;
         
-        for (ArrayList<String> list : clothList) {
+        for (ArrayList<String> list : map.values()) {
             total *= list.size() + 1;
         }
             
