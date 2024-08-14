@@ -39,7 +39,7 @@ public class Main {
 
         while (start < end) {
             int mid = (start + end) / 2;
-            if (canInstall(houses, routers - 2, mid)) {
+            if (canInstall(houses, routers - 1, mid)) {
                 start = mid + 1;
             } else {
                 end = mid;
@@ -58,7 +58,7 @@ public class Main {
             }
             previousHouse = house;
             if (--routers == 0) {
-                return (houses[houses.length - 1] - house) >= minDistance;
+                return true;
             }
         }
 
