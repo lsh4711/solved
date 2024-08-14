@@ -1,47 +1,49 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 class Solution {
-    public ArrayList<Integer> solution(String[] genres, int[] plays) {
-        ArrayList<int[]> datas = new ArrayList<>();
-        ArrayList<Integer> results = new ArrayList<>();
-        HashMap<String, Integer> map = new HashMap<>();
-
+    public int[] solution(String[] genres, int[] plays) {
+        HashMap<String, Integer> countMap = new HashMap<>();
+        HashMap<String, ArrayList<Integer[]>> songsMap = new HashMap<>();
+        
         for (int i = 0; i < genres.length; i++) {
             String genre = genres[i];
             int play = plays[i];
-            if (map.get(genre) == null) {
-                map.put(genre, datas.size());
-                datas.add(new int[] {0, 0, 0, 0, 0});
+            
+            int count = countMap.getOrDefault(genre, 0);
+            countMap.put(genre, count + play);
+            
+            ArrayList<Integer[]> songs = songsMap.getOrDefault(genre, new ArrayList<>());
+            songs.add(new Integer[] {i, play});
+            songsMap.put(genre, songs);
+        }
+        
+        String[] bestGenres = countMap.entrySet().stream()
+            .sorted((entry1, entry2) -> entry2.getValue() - entry1.getValue())
+            .map(Map.Entry::getKey)
+            .toArray(String[]::new);
+        
+        ArrayList<Integer> songList = new ArrayList<>();
+        
+        for (String genre : bestGenres) {
+            ArrayList<Integer[]> songs = songsMap.get(genre);
+            if (songs.size() == 1) {
+                songList.add(songs.get(0)[0]);
+                continue;
             }
-            int idx = map.get(genre);
-            add(datas.get(idx), i, play);
+            songs.sort((song1, song2) -> song2[1] - song1[1]);
+            songList.add(songs.get(0)[0]);
+            songList.add(songs.get(1)[0]);
         }
-        datas.sort((arr1, arr2) -> arr2[0] - arr1[0]);
-        for (int[] data : datas) {
-            results.add(data[1]);
-            if (data[4] != 0) {
-                results.add(data[3]);
-            }
+        
+        int[] result = new int[songList.size()];
+        
+        for (int i = 0; i < songList.size(); i++) {
+            int song = songList.get(i);
+            result[i] = song;
         }
-
-        return results;
-    }
-
-    static void add(int[] values, int idx, int play) {
-        values[0] += play;
-        if (values[2] < play) {
-            int tmpIdx = idx;
-            int tmpPlay = play;
-            idx = values[1];
-            play = values[2];
-            values[1] = tmpIdx;
-            values[2] = tmpPlay;
-        }
-        if (values[4] < play) {
-            values[3] = idx;
-            values[4] = play;
-        }
-
+        
+        return result;
     }
 }
