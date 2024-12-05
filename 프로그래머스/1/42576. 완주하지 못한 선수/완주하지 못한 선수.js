@@ -16,5 +16,4 @@ function solution(participant, completion) {
         }
     }
     
-    return 5;
 }
