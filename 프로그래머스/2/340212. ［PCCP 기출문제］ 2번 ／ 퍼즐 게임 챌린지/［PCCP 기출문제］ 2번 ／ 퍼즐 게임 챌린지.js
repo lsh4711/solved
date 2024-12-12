@@ -20,18 +20,18 @@ const binarySearch = (diffs, times, limit) => {
 }
 
 const canAllPassInLimit = (diffs, times, limit, level) => {
-    let currentTime = BigInt(0);
+    let currentTime = 0;
     
     for (let i = 0; i < diffs.length; i++) {
         const diff = diffs[i];
-        const time = BigInt(times[i]);
+        const time = times[i];
         
         if (diff <= level) {
             currentTime += time;
         } else {
-            const repeat = BigInt(diff - level);
+            const repeat = diff - level;
             const previousTime = i === 0 ? 0 : times[i - 1];
-            currentTime += ((BigInt(previousTime) + time) * repeat) + time;
+            currentTime += ((previousTime + time) * repeat) + time;
         }
         
         if (currentTime > limit) {
