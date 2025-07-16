@@ -6,8 +6,6 @@ class Solution {
     private val map = HashMap<Int, Int>()
         
     fun solution(operations: Array<String>): IntArray {
-        
-        
         operations.asSequence()
             .map {it.split(" ")}
             .forEach {
