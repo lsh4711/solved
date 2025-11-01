@@ -1,6 +1,9 @@
 function solution(nums) {
-    const length = Math.trunc(nums.length / 2);
-    const set = new Set(nums);
+    const set = new Set();
     
-    return Math.min(length, set.size);
+    nums.forEach(num => set.add(num));
+    
+    const size = Math.floor(nums.length / 2);
+    
+    return Math.min(size, set.size);
 }
